@@ -8,9 +8,7 @@ description: Codestates Pre-project로 StackOverFlow의 Clone Page를 제작
 
 Feeling like an eager beaver? Jump in to the quick start docs and get making your first request:
 
-{% content-ref url="quick-start.md" %}
-[quick-start.md](quick-start.md)
-{% endcontent-ref %}
+{% content-ref url="quick-start.md" %} [quick-start.md](quick-start.md) {% endcontent-ref %}
 
 ## API Specification
 
