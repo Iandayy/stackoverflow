@@ -6,7 +6,7 @@
 
 ## User actions
 
-{% swagger method="post" path="/v1/members" baseUrl="https://localhost:8080" summary="회원가입" %}
+ swagger method="post" path="/v1/members" baseUrl="https://localhost:8080" summary="회원가입" 
 {% swagger-description %}
 POST /v1/members&#x20;
 
