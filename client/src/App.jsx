@@ -7,19 +7,23 @@
 
 // tag 페이지 (/tags)
 // users 목록 페이지 (/users)
-import React from 'react'; // eslint-disable-line no-unused-vars
 
-import { Routes, Route, Link } from 'react-router-dom'; // eslint-disable-line no-unused-vars
+import { RecoilRoot } from 'recoil';
+
+import { Routes, Route, Link } from 'react-router-dom';
 
 import Home from './components/Pages/Home';
+import Questions from './components/Pages/Questions';
+import Tags from './components/Pages/Tags';
+import Users from './components/Pages/Users';
+
+import SideBar from './components/Common/SideBar';
 
 function App() {
   return (
-    <div className="App">
+    <RecoilRoot className="App">
       <header>
-        <Link to="/" element={<Home />}>
-          home
-        </Link>
+        <Link to="/">home</Link>
         <Link to="/login">login</Link>
         <Link to="/signup">signup</Link>
         <Link to="/questions">질문 페이지</Link>
@@ -29,18 +33,27 @@ function App() {
       </header>
       <main>
         <Routes>
-          <Route path="/">home</Route>
+          <Route path="/" element={<Home />}>
+            home
+          </Route>
           <Route path="/login">login</Route>
           <Route path="/signup">signup</Route>
 
-          <Route path="/questions">질문 페이지</Route>
+          <Route path="/questions" element={<Questions />}>
+            Questions
+          </Route>
           <Route path="/questions/ask">질문 작성 페이지</Route>
 
-          <Route path="/tags">tags 페이지</Route>
-          <Route path="/users">users 페이지</Route>
+          <Route path="/tags" element={<Tags />}>
+            Tags
+          </Route>
+          <Route path="/users" element={<Users />}>
+            Users
+          </Route>
         </Routes>
+        <SideBar />
       </main>
-    </div>
+    </RecoilRoot>
   );
 }
 
