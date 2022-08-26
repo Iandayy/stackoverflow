@@ -1,5 +1,5 @@
-const Tags = () => {
-    return <div></div>;
-  };
-  
+
+  return <div></div>;
+};
+
 export default Tags;

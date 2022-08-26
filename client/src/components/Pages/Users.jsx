@@ -1,5 +1,5 @@
-const Users = () => {
-    return <div></div>;
-  };
-  
+
+  return <div></div>;
+};
+
 export default Users;
