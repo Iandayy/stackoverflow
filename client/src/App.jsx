@@ -8,18 +8,15 @@
 // tag 페이지 (/tags)
 // users 목록 페이지 (/users)
 import React from 'react'; // eslint-disable-line no-unused-vars
-
-import { Routes, Route, Link } from 'react-router-dom'; // eslint-disable-line no-unused-vars
-
+import { Link, Route, Routes } from 'react-router-dom';
+import TopBar from './components/Common/TopBar';
 import Home from './components/Pages/Home';
 
 function App() {
   return (
     <div className="App">
       <header>
-        <Link to="/" element={<Home />}>
-          home
-        </Link>
+        <Link to="/">home</Link>
         <Link to="/login">login</Link>
         <Link to="/signup">signup</Link>
         <Link to="/questions">질문 페이지</Link>
@@ -29,7 +26,9 @@ function App() {
       </header>
       <main>
         <Routes>
-          <Route path="/">home</Route>
+          <Route path="/" element={<Home />}>
+            home
+          </Route>
           <Route path="/login">login</Route>
           <Route path="/signup">signup</Route>
 
@@ -39,6 +38,7 @@ function App() {
           <Route path="/tags">tags 페이지</Route>
           <Route path="/users">users 페이지</Route>
         </Routes>
+        <TopBar />
       </main>
     </div>
   );

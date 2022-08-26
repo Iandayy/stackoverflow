@@ -1,5 +1,11 @@
+import SideBar from '../Common/SideBar';
+
 const Home = () => {
-  return <h1>HI</h1>;
+  return (
+    <div>
+      <SideBar />
+    </div>
+  );
 };
 
 export default Home;
