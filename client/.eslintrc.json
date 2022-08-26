@@ -18,17 +18,17 @@
       "jsx": true
     },
     "ecmaVersion": "latest",
-    "sourceType": "module",
-    "requireConfigFile" : "false"
+    "sourceType": "module"
+    // "requireConfigFile" : "false"
   },
-  "babelOptions": { 
-    "configFile": "./.babelrc" 
-  },
-  "plugins": ["prettier"], 
+  // "babelOptions": {
+  //   "configFile": "./.babelrc"
+  // },
+  // "plugins": ["prettier"],
   "rules": {
     "react/react-in-jsx-scope": 0,
     "react/jsx-uses-react": 0,
-    "import/no-unresolved": "off",
-    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+    "import/no-unresolved": "off"
+    // "prettier/prettier": ["error", { "endOfLine": "auto" }]
   }
 }

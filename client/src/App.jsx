@@ -14,8 +14,7 @@ import Home from './components/Pages/Home';
 import Questions from './components/Pages/Questions';
 import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
-import TopBar from './components/Common/TopBar';
-import SideBar from './components/Common/SideBar';
+import Layout from './components/Pages/Layout';
 
 function App() {
   return (
@@ -49,8 +48,7 @@ function App() {
             Users
           </Route>
         </Routes>
-        <TopBar />
-        <SideBar />
+        <Layout />
       </main>
     </RecoilRoot>
   );

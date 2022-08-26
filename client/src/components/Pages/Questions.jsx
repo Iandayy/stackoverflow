@@ -1,4 +1,4 @@
-
+const Questions = () => {
   return <div></div>;
 };
 

@@ -56,20 +56,22 @@ const SideBar = () => {
   };
 
   return (
-    <SideMenu>
-      {menuArr.map((el, index) => (
-        <Menu key={index} onClick={() => selectMenuHandler(index)}>
-          {
-            <Link
-              to={el.path}
-              className={currentTab === index ? 'public focused' : 'public'}
-            >
-              {el.name}
-            </Link>
-          }
-        </Menu>
-      ))}
-    </SideMenu>
+    <div>
+      <SideMenu>
+        {menuArr.map((el, index) => (
+          <Menu key={index} onClick={() => selectMenuHandler(index)}>
+            {
+              <Link
+                to={el.path}
+                className={currentTab === index ? 'public focused' : 'public'}
+              >
+                {el.name}
+              </Link>
+            }
+          </Menu>
+        ))}
+      </SideMenu>
+    </div>
   );
 };
 
