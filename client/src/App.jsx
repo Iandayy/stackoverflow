@@ -9,14 +9,12 @@
 // users 목록 페이지 (/users)
 
 import { RecoilRoot } from 'recoil';
-
 import { Routes, Route, Link } from 'react-router-dom';
-
 import Home from './components/Pages/Home';
 import Questions from './components/Pages/Questions';
 import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
-
+import TopBar from './components/Common/TopBar';
 import SideBar from './components/Common/SideBar';
 
 function App() {
@@ -51,6 +49,7 @@ function App() {
             Users
           </Route>
         </Routes>
+        <TopBar />
         <SideBar />
       </main>
     </RecoilRoot>

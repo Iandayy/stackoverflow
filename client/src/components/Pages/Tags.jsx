@@ -1,4 +1,4 @@
-const Tags = () => {
+
   return <div></div>;
 };
 

@@ -22,7 +22,7 @@ const SideMenu = styled.aside`
   margin-bottom: 7rem;
 `;
 
-const Meun = styled.section`
+const Menu = styled.section`
   color: rgba(73, 73, 73, 0.5);
   padding: 5px;
 
@@ -58,7 +58,7 @@ const SideBar = () => {
   return (
     <SideMenu>
       {menuArr.map((el, index) => (
-        <Meun key={index} onClick={() => selectMenuHandler(index)}>
+        <Menu key={index} onClick={() => selectMenuHandler(index)}>
           {
             <Link
               to={el.path}
@@ -67,7 +67,7 @@ const SideBar = () => {
               {el.name}
             </Link>
           }
-        </Meun>
+        </Menu>
       ))}
     </SideMenu>
   );
