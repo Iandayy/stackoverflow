@@ -1,25 +1,27 @@
-import TopBar from '../Common/TopBar';
+/* eslint-disable react/prop-types */
+
 import SideBar from '../Common/SideBar';
-import Footer from '../Common/Footer';
 
 import styled from 'styled-components';
+// import PropTypes from 'prop-types';
 
 const Container = styled.div``;
 
-const Layout = () => {
+const Contents = styled.section`
+  display: flex;
+`;
+
+const Layout = ({ children }) => {
   return (
     <Container>
-      <header>
-        <TopBar />
-      </header>
-      <main>
-        <SideBar />
-      </main>
-      <footer>
-        <Footer />
-      </footer>
+      <SideBar />
+      <Contents>{children}</Contents>
     </Container>
   );
 };
+
+// Layout.propTypes = {
+//   children: PropTypes.element,
+// };
 
 export default Layout;
