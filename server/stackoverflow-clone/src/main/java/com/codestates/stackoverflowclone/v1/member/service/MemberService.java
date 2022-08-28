@@ -7,6 +7,8 @@ import com.codestates.stackoverflowclone.v1.member.helper.event.MemberRegistrati
 import com.codestates.stackoverflowclone.v1.member.repository.MemberRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
@@ -32,12 +34,19 @@ public class MemberService {
         return savedMember;
     }
 
+    @Transactional(propagation = Propagation.REQUIRED, isolation = Isolation.SERIALIZABLE)
     public Member updateMember(Member member){
-        return member;
+        Member findMember = findVerifiedMember(member.getId());
+
+        Optional.ofNullable(member.getName())
+                .ifPresent(name -> findMember.setName(name));
+        Optional.ofNullable(member.getPassword())
+                .ifPresent(password -> findMember.setPassword(password));
+        return memberRepository.save(findMember);
     }
 
-    public void deleteMember(int memberId){
-        Member findMember = findVerifiedMember(memberId);
+    public void deleteMember(int id){
+        Member findMember = findVerifiedMember(id);
         memberRepository.delete(findMember);
 
     }
@@ -49,8 +58,8 @@ public class MemberService {
         }
     }
     @Transactional(readOnly = true)
-    public Member findVerifiedMember(int memberId){
-        Optional<Member> optionalMember = memberRepository.findById(memberId);
+    public Member findVerifiedMember(int id){
+        Optional<Member> optionalMember = memberRepository.findById(id);
         Member findMember = optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         return findMember;
     }

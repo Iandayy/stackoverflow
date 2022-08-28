@@ -1,5 +1,6 @@
 package com.codestates.stackoverflowclone.v1.member.entity;
 
+import com.codestates.stackoverflowclone.v1.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import javax.validation.constraints.Email;
 @Getter
 @Setter
 @Entity
-public class Member {
+public class Member extends Auditable {
     // audit pull 이후 extends 예정
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,4 +27,6 @@ public class Member {
 
     @Column(length = 100, nullable = false)
     private String name;
+
+
 }

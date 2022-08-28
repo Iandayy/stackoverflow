@@ -25,12 +25,12 @@ public class MemberDto {
     @Getter
     @AllArgsConstructor
     public static class Patch{
-        private int memberId;
+        private int id;
         private String password;
         private String name;
 
-        public void setMemberId(int memberId) {
-            this.memberId = memberId;
+        public void setId(int id) {
+            this.id = id;
         }
     }
 
@@ -40,5 +40,12 @@ public class MemberDto {
         private int memberId;
         private String email;
         private String name;
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Login{
+        private String email;
+        private String password;
     }
 }
