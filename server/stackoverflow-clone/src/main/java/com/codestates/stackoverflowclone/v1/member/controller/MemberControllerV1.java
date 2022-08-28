@@ -35,25 +35,25 @@ public class MemberControllerV1 {
         return new ResponseEntity<>("회원가입완료", HttpStatus.CREATED);
     }
 
-    @PatchMapping("/{member_id}")
-    public ResponseEntity patchMember(@PathVariable("member-id") @Positive int memberId,
+    @PatchMapping("/{id}")
+    public ResponseEntity patchMember(@PathVariable("id") @Positive int id,
                                       @Valid @RequestBody MemberDto.Patch requestBody){
-        requestBody.setMemberId(memberId);
+        requestBody.setId(id);
 
         Member member = memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
 
         return new ResponseEntity<>("수정완료", HttpStatus.OK);
     }
 
-//    @GetMapping("/{member_id}")
-//    public ResponseEntity getMember(){
+//    @GetMapping("/login")
+//    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login requestBody){
 //
 //    }
 
-    @DeleteMapping("/{member-id}")
-    public ResponseEntity deleteMember(@PathVariable("member-id")@Positive int memberId){
-        memberService.deleteMember(memberId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteMember(@PathVariable("id")@Positive int id){
+        memberService.deleteMember(id);
 
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("회원탈퇴완료",HttpStatus.NO_CONTENT);
     }
 }
