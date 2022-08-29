@@ -22,10 +22,19 @@ import java.util.Optional;
 
 import static com.codestates.stackoverflowclone.v1.question.dto.QuestionDto.*;
 
+import com.codestates.stackoverflowclone.v1.question.dto.QuestionDto;
+import com.codestates.stackoverflowclone.v1.question.entity.Question;
+import com.codestates.stackoverflowclone.v1.question.repository.QuestionRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class QuestionService {
+
 
     private final QuestionRepository questionRepository;
 //    private MemberService memberService;
@@ -49,14 +58,14 @@ public class QuestionService {
 
     //질문 수정
     @Transactional
-    public void update(UpdateDto updateDto) {   ///////////
+    public void update(UpdateDto updateDto) {   ////
         int id = updateDto.getId();
         Question question = findById(id);
 
         question.update(updateDto.getTitle(), updateDto.getContent());
 
-        question.getQuestionTags().clear();     /////
-        for (String tag : updateDto.getTags()) {  /////
+        question.getQuestionTags().clear();     //
+        for (String tag : updateDto.getTags()) {  //
 
             //태그 등록 (존재하는 태그일 경우 사용 횟수만 증가)
             Tag newTag = tagService.register(tag);
@@ -82,11 +91,11 @@ public class QuestionService {
 
 
         return questionRepository.findAll(
-                PageRequest.of(page - 1, size, Sort.by("id").descending())); ///id?
+                PageRequest.of(page - 1, size, Sort.by("id").descending())); 
     }
 
     //질문 검색
-    public Page<Question> search(String content, int page, int size) {   //////페이징
+    public Page<Question> search(String content, int page, int size) {   //페이징
         List<Question> questions = questionRepository.findByContentContains(content);
 
         return new PageImpl(questions,
@@ -129,5 +138,6 @@ public class QuestionService {
             question.addQuestionTag(questionTag);
         }
     }
+
 
 }

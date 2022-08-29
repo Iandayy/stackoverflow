@@ -1,5 +1,6 @@
 package com.codestates.stackoverflowclone.v1.question.entity;
 
+
 import com.codestates.stackoverflowclone.v1.tag.Tag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +14,7 @@ import static javax.persistence.GenerationType.*;
 
 @Entity
 @Getter
-@Setter   ///////
+@Setter  
 @NoArgsConstructor
 public class QuestionTag {
 
@@ -22,13 +23,12 @@ public class QuestionTag {
     private int id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "question_id") //////
+    @JoinColumn(name = "question_id") 
     private Question question;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "tag_name")   /////
+    @JoinColumn(name = "tag_name")
     private Tag tag;
-
 
 
     public QuestionTag(Tag tag) {
@@ -41,4 +41,3 @@ public class QuestionTag {
     }
 
 
-}

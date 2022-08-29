@@ -8,5 +8,5 @@ import java.util.List;
 public interface QuestionRepository extends JpaRepository<Question, Integer>, QuestionCustomRepository {
 
     List<Question> findByContentContains(String content);
-//    List<Question> findAllByOrderByIdDesc();
+
 }
