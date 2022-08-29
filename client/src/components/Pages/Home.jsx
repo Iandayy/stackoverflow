@@ -1,13 +1,8 @@
 const Home = () => {
   return (
     <div>
-      <h1>hi</h1>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil, totam!
-        Odio sunt obcaecati, inventore similique ea commodi sed totam ipsam
-        labore doloremque assumenda beatae. Distinctio similique quo quasi! Vel,
-        explicabo!
-      </p>
+      <h1>HOME</h1>
+      <p>아 오늘 정말 너무 힘들었어</p>
     </div>
   );
 };

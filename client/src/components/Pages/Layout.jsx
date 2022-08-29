@@ -1,27 +1,23 @@
 /* eslint-disable react/prop-types */
-
+import styled from 'styled-components';
+import Footer from '../Common/Footer';
 import SideBar from '../Common/SideBar';
 
-import styled from 'styled-components';
-// import PropTypes from 'prop-types';
-
-const Container = styled.div``;
-
-const Contents = styled.section`
+const Body = styled.div`
   display: flex;
+  flex-direction: row;
 `;
 
 const Layout = ({ children }) => {
   return (
-    <Container>
-      <SideBar />
-      <Contents>{children}</Contents>
-    </Container>
+    <div>
+      <Body>
+        <SideBar />
+        {children}
+      </Body>
+      <Footer />
+    </div>
   );
 };
-
-// Layout.propTypes = {
-//   children: PropTypes.element,
-// };
 
 export default Layout;
