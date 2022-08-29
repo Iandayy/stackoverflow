@@ -2,6 +2,7 @@ package com.codestates.stackoverflowclone.v1.question.service;
 
 import com.codestates.stackoverflowclone.v1.member.entity.Member;
 import com.codestates.stackoverflowclone.v1.member.repository.MemberRepository;
+import com.codestates.stackoverflowclone.v1.member.service.MemberService;
 import com.codestates.stackoverflowclone.v1.question.entity.Question;
 import com.codestates.stackoverflowclone.v1.question.entity.QuestionTag;
 
@@ -16,16 +17,13 @@ import java.util.List;
 
 import static com.codestates.stackoverflowclone.v1.question.dto.QuestionDto.*;
 
-
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class QuestionService {
 
-
     private final QuestionRepository questionRepository;
-//    private MemberService memberService;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
     private final TagService tagService;
 
     //질문 등록
@@ -33,8 +31,7 @@ public class QuestionService {
     public Question register(RegisterDto registerDto) {
 
         int member_id = registerDto.getMember_id();
-//        Member member = memberService.findById(member_id).get();
-        Member member = memberRepository.findById(member_id).orElseThrow();
+        Member member = memberService.findVerifiedMember(member_id);
 
         Question question = new Question(registerDto.getTitle(), registerDto.getContent());
         question.setMember(member);
@@ -84,11 +81,9 @@ public class QuestionService {
 
     //질문 검색
     public Page<Question> search(String content, int page, int size) {   //페이징
-        List<Question> questions = questionRepository.findByContentContains(content);
 
-        return new PageImpl(questions,
-                            PageRequest.of(page-1, size, Sort.by("id").descending()),
-                            questions.size());
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("id").descending());
+        return questionRepository.findByContentContains(content, pageable);
     }
 
     //질문 삭제
