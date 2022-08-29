@@ -23,7 +23,11 @@ public class QuestionTag {
     private int id;
 
     @ManyToOne(fetch = LAZY)
+
     @JoinColumn(name = "question_id")
+
+    @JoinColumn(name = "question_id") 
+
     private Question question;
 
     @ManyToOne(fetch = LAZY)
@@ -35,8 +39,17 @@ public class QuestionTag {
         this.tag = tag;
     }
 
+
     public QuestionTag(Question question, Tag tag) {
         this.question = question;
         this.tag = tag;
     }
 }
+
+    public QuestionTag (Question question, Tag tag) {
+        this.question = question;
+        this.tag = tag;
+    }
+
+
+

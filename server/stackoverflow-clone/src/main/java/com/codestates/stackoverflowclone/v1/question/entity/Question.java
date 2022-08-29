@@ -1,3 +1,22 @@
+
+package com.codestates.stackoverflowclone.v1.question.entity;
+
+import com.codestates.stackoverflowclone.v1.answer.Answer;
+import com.codestates.stackoverflowclone.v1.audit.Auditable;
+import com.codestates.stackoverflowclone.v1.member.entity.Member;
+import com.codestates.stackoverflowclone.v1.tag.Tag;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.FetchType.*;
+
 package com.codestates.stackoverflowclone.v1.question.entity;
 
 import com.codestates.stackoverflowclone.v1.answer.Answer;
@@ -34,7 +53,11 @@ public class Question extends Auditable {
     private String title;
     private String content;
     private int viewCount;
+
     private int answerCount; ///
+
+    private int answerCount ///
+
 
     @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "member_id")  
@@ -88,3 +111,4 @@ public class Question extends Auditable {
 
 
 }
+
