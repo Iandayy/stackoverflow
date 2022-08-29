@@ -15,11 +15,12 @@ const SideMenu = styled.aside`
   display: flex;
   flex-direction: column;
   list-style: none;
-  width: 150px;
+  width: 8rem;
   height: 100vh;
   padding: 10px;
   padding-top: 30px;
   margin-bottom: 7rem;
+  position: fixed;
 `;
 
 const Menu = styled.section`

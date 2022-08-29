@@ -33,7 +33,7 @@ const Input = styled.input`
 const SearchIcon = styled.img`
   width: 15px;
   height: 15px;
-  position: ;
+  /* position: ; */
 `;
 
 const LogIn = styled.button`

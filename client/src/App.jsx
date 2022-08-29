@@ -9,47 +9,35 @@
 // users 목록 페이지 (/users)
 
 import { RecoilRoot } from 'recoil';
-import { Routes, Route, Link } from 'react-router-dom';
+
+import { Routes, Route } from 'react-router-dom';
 import Home from './components/Pages/Home';
 import Questions from './components/Pages/Questions';
 import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
 import Layout from './components/Pages/Layout';
 
+import TopBar from './components/Common/TopBar';
+import Footer from './components/Common/Footer';
+
 function App() {
   return (
     <RecoilRoot className="App">
-      <header>
-        <Link to="/">home</Link>
-        <Link to="/login">login</Link>
-        <Link to="/signup">signup</Link>
-        <Link to="/questions">질문 페이지</Link>
-        <Link to="/questions/ask">질문 작성 페이지</Link>
-        <Link to="/tags">tags 페이지</Link>
-        <Link to="/users">users 페이지</Link>
-      </header>
-      <main>
+      <TopBar />
+      <Layout>
         <Routes>
-          <Route path="/" element={<Home />}>
-            home
-          </Route>
-          <Route path="/login">login</Route>
-          <Route path="/signup">signup</Route>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" />
+          <Route path="/signup" />
 
-          <Route path="/questions" element={<Questions />}>
-            Questions
-          </Route>
-          <Route path="/questions/ask">질문 작성 페이지</Route>
+          <Route path="/questions" element={<Questions />} />
+          <Route path="/questions/ask" />
 
-          <Route path="/tags" element={<Tags />}>
-            Tags
-          </Route>
-          <Route path="/users" element={<Users />}>
-            Users
-          </Route>
+          <Route path="/tags" element={<Tags />} />
+          <Route path="/users" element={<Users />} />
         </Routes>
-        <Layout />
-      </main>
+      </Layout>
+      <Footer />
     </RecoilRoot>
   );
 }
