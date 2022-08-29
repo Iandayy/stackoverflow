@@ -25,8 +25,27 @@ public class MemberDto {
     @Getter
     @AllArgsConstructor
     public static class Patch{
+        private int id;
+        private String password;
+        private String name;
+
+        public void setId(int id) {
+            this.id = id;
+        }
+    }
+
+    @AllArgsConstructor
+    @Getter
+    public static class Response{
         private int memberId;
+        private String email;
+        private String name;
+    }
 
-
+    @AllArgsConstructor
+    @Getter
+    public static class Login{
+        private String email;
+        private String password;
     }
 }

@@ -5,8 +5,16 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
+
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
+
+    List<Question> findByContentContains(String content);
+
+}
+
 public interface QuestionRepository extends JpaRepository<Question, Integer>, QuestionCustomRepository {
 
     List<Question> findByContentContains(String content);
 
 }
+
