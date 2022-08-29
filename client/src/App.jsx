@@ -23,20 +23,20 @@ function App() {
   return (
     <RecoilRoot className="App">
       <GlobalStyle />
-       <TopBar />
+      <TopBar />
       <Layout>
         <main>
-         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" />
-          <Route path="/signup" />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" />
+            <Route path="/signup" />
 
-          <Route path="/questions" element={<Questions />} />
-          <Route path="/questions/ask" />
+            <Route path="/questions" element={<Questions />} />
+            <Route path="/questions/ask" />
 
-          <Route path="/tags" element={<Tags />} />
-          <Route path="/users" element={<Users />} />
-        </Routes>
+            <Route path="/tags" element={<Tags />} />
+            <Route path="/users" element={<Users />} />
+          </Routes>
         </main>
       </Layout>
       <Footer />
