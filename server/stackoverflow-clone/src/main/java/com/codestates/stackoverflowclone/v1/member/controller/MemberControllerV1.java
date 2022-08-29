@@ -45,10 +45,11 @@ public class MemberControllerV1 {
         return new ResponseEntity<>("수정완료", HttpStatus.OK);
     }
 
-//    @GetMapping("/login")
-//    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login requestBody){
-//
-//    }
+    @GetMapping("/login")
+    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login requestBody){
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteMember(@PathVariable("id")@Positive int id){
