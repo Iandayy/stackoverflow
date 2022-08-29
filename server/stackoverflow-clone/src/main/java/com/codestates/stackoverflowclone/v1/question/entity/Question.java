@@ -1,26 +1,28 @@
-
 package com.codestates.stackoverflowclone.v1.question.entity;
 
 import com.codestates.stackoverflowclone.v1.answer.Answer;
 import com.codestates.stackoverflowclone.v1.audit.Auditable;
 import com.codestates.stackoverflowclone.v1.member.entity.Member;
-import com.codestates.stackoverflowclone.v1.tag.Tag;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import static javax.persistence.GenerationType.*;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 public class Question extends Auditable {
 
@@ -31,15 +33,18 @@ public class Question extends Auditable {
     private String title;
     private String content;
     private int viewCount;
-    private int answerCount /*= this.answers.size()*/;    ////////
+    private int answerCount; ///
+
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")   ////////
+    @JoinColumn(name = "member_id")  
     private Member member;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "question", orphanRemoval = true)
     private List<Answer> answers = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "question", cascade = PERSIST, orphanRemoval = true)
     private List<QuestionTag> questionTags = new ArrayList<>();
 
@@ -56,7 +61,7 @@ public class Question extends Auditable {
     }
 
     //수정
-    public void update(String title, String content) {  ///////
+    public void update(String title, String content) {  /////
         this.title = title;
         this.content = content;
     }
@@ -75,7 +80,7 @@ public class Question extends Auditable {
 
     public void setMember(Member member) {
         this.member = member;
-//        member.getQuestions.add(this);
+        member.getQuestions().add(this);
     }
     public void addQuestionTag(QuestionTag questionTag) {
         questionTags.add(questionTag);
@@ -83,4 +88,6 @@ public class Question extends Auditable {
     }
 
 
+
 }
+

@@ -1,5 +1,6 @@
 package com.codestates.stackoverflowclone.v1.tag;
 
+
 import com.codestates.stackoverflowclone.v1.question.entity.QuestionTag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,7 +34,7 @@ public class Tag {
     }
 
 
-    //===================
+    //================
 
     public void addQuestionTag(QuestionTag questionTag) {
         questionTags.add(questionTag);
@@ -42,4 +43,5 @@ public class Tag {
     public void addUsageCount() {
         this.usageCount++;
     }
+
 }
