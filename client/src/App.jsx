@@ -16,34 +16,30 @@ import Layout from './components/Pages/Layout';
 import Questions from './components/Pages/Questions';
 import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
+import TopBar from './components/Common/TopBar';
+import Footer from './components/Common/Footer';
 
 function App() {
   return (
     <RecoilRoot className="App">
       <GlobalStyle />
+       <TopBar />
       <Layout>
         <main>
-          <Routes>
-            <Route path="/" element={<Home />}>
-              home
-            </Route>
-            <Route path="/login">login</Route>
-            <Route path="/signup">signup</Route>
+         <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" />
+          <Route path="/signup" />
 
-            <Route path="/questions" element={<Questions />}>
-              Questions
-            </Route>
-            <Route path="/questions/ask">질문 작성 페이지</Route>
+          <Route path="/questions" element={<Questions />} />
+          <Route path="/questions/ask" />
 
-            <Route path="/tags" element={<Tags />}>
-              Tags
-            </Route>
-            <Route path="/users" element={<Users />}>
-              Users
-            </Route>
-          </Routes>
+          <Route path="/tags" element={<Tags />} />
+          <Route path="/users" element={<Users />} />
+        </Routes>
         </main>
       </Layout>
+      <Footer />
     </RecoilRoot>
   );
 }

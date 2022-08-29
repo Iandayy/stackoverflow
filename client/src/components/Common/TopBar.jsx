@@ -1,14 +1,11 @@
 import React from 'react'; // eslint-disable-line no-unused-vars
 import styled from 'styled-components';
 import LogoImg from '../../assets/logo.png';
-// import LogIn from '../User/LogIn';
-// import SignUp from '../User/SignUp';
 
-const TopBarWrapper = styled.div`
+const TopBarWrapper = styled.div
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* justify-content: center; */
   background-color: #f8f9f9;
   width: 100%;
   height: 47px;
@@ -17,15 +14,15 @@ const TopBarWrapper = styled.div`
   /* padding: 0.25em 1em; */
   /* border: 2px solid palevioletred; */
   /* border-radius: 3px; */
-`;
+;
 
-const Logo = styled.img`
+const Logo = styled.img
   width: 150px;
   height: 30px;
   margin: 8px;
-`;
+;
 
-const Form = styled.form`
+const Form = styled.form
   display: flex;
   position: relative;
   width: 70%;
@@ -35,14 +32,14 @@ const Form = styled.form`
   background-color: white;
   margin-left: 8px;
   margin-right: 8px;
-`;
+;
 
-const SearchIcon = styled.img`
+const SearchIcon = styled.img
   width: 22px;
   transform: translateX(5px);
-`;
+;
 
-const Input = styled.input`
+const Input = styled.input
   width: 100%;
   border: 1px solid #bbb;
   border-radius: 3px;
@@ -50,14 +47,9 @@ const Input = styled.input`
   font-size: 14px;
   border: none;
   outline: none;
-`;
+;
 
-// const BtnWrapper = styled.div`
-//   /* position: absolute; */
-//   transform: translateX(50%);
-// `;
-
-const LogIn = styled.button`
+const LogIn = styled.button
   width: 60px;
   height: 33px;
   margin-right: 4px;
@@ -68,12 +60,11 @@ const LogIn = styled.button`
   &:hover {
     color: #2b5876;
     background-color: #b3d3ea;
-    /* border: 1px solid #2b5876; */
     cursor: pointer;
   }
-`;
+;
 
-const SignUp = styled.button`
+const SignUp = styled.button
   width: 60px;
   height: 33px;
   color: white;
@@ -84,8 +75,7 @@ const SignUp = styled.button`
     background-color: #0073cc;
     cursor: pointer;
   }
-`;
-
+;
 const TopBar = () => {
   return (
     <TopBarWrapper>
@@ -97,10 +87,8 @@ const TopBar = () => {
         />
         <Input type="text" placeholder="Search..." />
       </Form>
-      {/* <BtnWrapper> */}
       <LogIn>Log in</LogIn>
       <SignUp>Sign up</SignUp>
-      {/* </BtnWrapper> */}
     </TopBarWrapper>
   );
 };

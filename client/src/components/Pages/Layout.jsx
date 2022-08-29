@@ -2,7 +2,6 @@
 import styled from 'styled-components';
 import Footer from '../Common/Footer';
 import SideBar from '../Common/SideBar';
-import TopBar from '../Common/TopBar';
 
 const Body = styled.div`
   display: flex;
@@ -12,9 +11,6 @@ const Body = styled.div`
 const Layout = ({ children }) => {
   return (
     <div>
-      <header>
-        <TopBar />
-      </header>
       <Body>
         <SideBar />
         {children}
