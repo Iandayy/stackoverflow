@@ -6,6 +6,10 @@ import com.codestates.stackoverflowclone.v1.member.service.MemberService;
 import com.codestates.stackoverflowclone.v1.question.dto.QuestionDto;
 import com.codestates.stackoverflowclone.v1.question.entity.Question;
 import com.codestates.stackoverflowclone.v1.question.entity.QuestionTag;
+
+
+import com.codestates.stackoverflowclone.v1.question.repository.QuestionCustomRepositoryImpl;
+
 import com.codestates.stackoverflowclone.v1.question.repository.QuestionRepository;
 import com.codestates.stackoverflowclone.v1.tag.Tag;
 import com.codestates.stackoverflowclone.v1.tag.TagService;
