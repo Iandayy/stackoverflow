@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 public class QuestionDto {
+
     @Getter @Setter
     @AllArgsConstructor @NoArgsConstructor
     public static class RegisterDto {
@@ -77,4 +79,6 @@ public class QuestionDto {
         private int answerCount;   //////
         private LocalDateTime createdAt;
     }
+
+
 }

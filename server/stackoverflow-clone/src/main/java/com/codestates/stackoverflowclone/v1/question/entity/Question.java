@@ -16,11 +16,25 @@ import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
+
+package com.codestates.stackoverflowclone.v1.question.entity;
+
+import com.codestates.stackoverflowclone.v1.audit.Auditable;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import java.util.List;
+
 import static javax.persistence.GenerationType.*;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+
 @Entity
 public class Question extends Auditable {
 
@@ -31,10 +45,10 @@ public class Question extends Auditable {
     private String title;
     private String content;
     private int viewCount;
-    private int answerCount /*= this.answers.size()*/;    ////////
+    private int answerCount ///
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "member_id")   ////////
+    @JoinColumn(name = "member_id")  
     private Member member;
 
     @OneToMany(mappedBy = "question", orphanRemoval = true)
@@ -56,7 +70,7 @@ public class Question extends Auditable {
     }
 
     //수정
-    public void update(String title, String content) {  ///////
+    public void update(String title, String content) {  /////
         this.title = title;
         this.content = content;
     }
@@ -83,4 +97,6 @@ public class Question extends Auditable {
     }
 
 
+
 }
+
