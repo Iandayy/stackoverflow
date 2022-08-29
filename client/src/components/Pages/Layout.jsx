@@ -1,24 +1,26 @@
-import TopBar from '../Common/TopBar';
-import SideBar from '../Common/SideBar';
-import Footer from '../Common/Footer';
-
+/* eslint-disable react/prop-types */
 import styled from 'styled-components';
+import Footer from '../Common/Footer';
+import SideBar from '../Common/SideBar';
+import TopBar from '../Common/TopBar';
 
-const Container = styled.div``;
+const Body = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
-const Layout = () => {
+const Layout = ({ children }) => {
   return (
-    <Container>
+    <div>
       <header>
         <TopBar />
       </header>
-      <main>
+      <Body>
         <SideBar />
-      </main>
-      <footer>
-        <Footer />
-      </footer>
-    </Container>
+        {children}
+      </Body>
+      <Footer />
+    </div>
   );
 };
 

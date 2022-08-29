@@ -1,5 +1,5 @@
 const Users = () => {
-  return <div></div>;
+  return <div>USERS</div>;
 };
 
 export default Users;
