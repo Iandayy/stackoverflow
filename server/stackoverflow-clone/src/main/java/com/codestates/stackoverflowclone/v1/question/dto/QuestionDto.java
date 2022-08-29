@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.*;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @Getter
 public class QuestionDto {
+
     @Getter @Setter
     @AllArgsConstructor @NoArgsConstructor
     public static class RegisterDto {
@@ -20,9 +22,9 @@ public class QuestionDto {
         private String title;
         @NotBlank
         private String content;
-        private List<String> tags;   /////////////////
+        private List<String> tags;   ////
         @Positive
-        private int member_id;  //////////////
+        private int member_id;  ////
     }
 
     @Getter @Setter
@@ -58,7 +60,7 @@ public class QuestionDto {
         private int question_id;
         private String title;
         private String content;
-        private List<String> tags;   /////////////////
+        private List<String> tags;   ///////
         private LocalDateTime createdAt;
         private int answerCount;
         private int viewCount;
@@ -77,4 +79,6 @@ public class QuestionDto {
         private int answerCount;   //////
         private LocalDateTime createdAt;
     }
+
+
 }

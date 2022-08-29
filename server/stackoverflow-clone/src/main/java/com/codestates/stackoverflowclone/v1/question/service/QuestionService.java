@@ -2,30 +2,26 @@ package com.codestates.stackoverflowclone.v1.question.service;
 
 import com.codestates.stackoverflowclone.v1.member.entity.Member;
 import com.codestates.stackoverflowclone.v1.member.repository.MemberRepository;
-import com.codestates.stackoverflowclone.v1.member.service.MemberService;
-import com.codestates.stackoverflowclone.v1.question.dto.QuestionDto;
 import com.codestates.stackoverflowclone.v1.question.entity.Question;
 import com.codestates.stackoverflowclone.v1.question.entity.QuestionTag;
-import com.codestates.stackoverflowclone.v1.question.repository.QuestionCustomRepositoryImpl;
+
 import com.codestates.stackoverflowclone.v1.question.repository.QuestionRepository;
 import com.codestates.stackoverflowclone.v1.tag.Tag;
 import com.codestates.stackoverflowclone.v1.tag.TagService;
 import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Literal;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static com.codestates.stackoverflowclone.v1.question.dto.QuestionDto.*;
+
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 @Service
 public class QuestionService {
+
 
     private final QuestionRepository questionRepository;
 //    private MemberService memberService;
@@ -49,14 +45,14 @@ public class QuestionService {
 
     //질문 수정
     @Transactional
-    public void update(UpdateDto updateDto) {   ///////////
+    public Question update(UpdateDto updateDto) {   ////
         int id = updateDto.getId();
         Question question = findById(id);
 
         question.update(updateDto.getTitle(), updateDto.getContent());
 
-        question.getQuestionTags().clear();     /////
-        for (String tag : updateDto.getTags()) {  /////
+        question.getQuestionTags().clear();     //
+        for (String tag : updateDto.getTags()) {  //
 
             //태그 등록 (존재하는 태그일 경우 사용 횟수만 증가)
             Tag newTag = tagService.register(tag);
@@ -67,11 +63,13 @@ public class QuestionService {
 
             question.addQuestionTag(questionTag);
         }
+        return question;
     }
 
     //질문 단일조회
+    @Transactional
     public Question findOne(int question_id) {
-        Question findQuestion = findOne(question_id);
+        Question findQuestion = findById(question_id);
         findQuestion.addViewCount();
 
         return findQuestion;
@@ -80,21 +78,18 @@ public class QuestionService {
     //질문 전체조회
     public Page<Question> findAll(int page, int size) {   //페이징
 
-
         return questionRepository.findAll(
-                PageRequest.of(page - 1, size, Sort.by("id").descending())); ///id?
+                PageRequest.of(page - 1, size, Sort.by("id").descending())); 
     }
 
     //질문 검색
-    public Page<Question> search(String content, int page, int size) {   //////페이징
+    public Page<Question> search(String content, int page, int size) {   //페이징
         List<Question> questions = questionRepository.findByContentContains(content);
 
         return new PageImpl(questions,
-                            PageRequest.of(page, size, Sort.by("id").descending()),
+                            PageRequest.of(page-1, size, Sort.by("id").descending()),
                             questions.size());
-
     }
-
 
     //질문 삭제
     @Transactional
@@ -129,5 +124,6 @@ public class QuestionService {
             question.addQuestionTag(questionTag);
         }
     }
+
 
 }
