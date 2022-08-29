@@ -33,8 +33,6 @@ public class QuestionControllerV1 {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
 
-
-
     //질문 등록
     @PostMapping
     public ResponseEntity register(@RequestBody RegisterDto registerDto) {
@@ -56,7 +54,11 @@ public class QuestionControllerV1 {
 
     //질문 수정
     @PatchMapping("/{question_id}/edit")   ///
+
+    public ResponseEntity updateQue(@PathVariable int question_id,
+
     public ResponseEntity update(@PathVariable int question_id,
+
                                  @RequestBody UpdateDto updateDto) {
         updateDto.setId(question_id);
         questionService.update(updateDto);
@@ -82,11 +84,18 @@ public class QuestionControllerV1 {
         SingleQuestionDto response = mapper.questionToResponse(findQuestion);
         return new ResponseEntity(new SingleResponseDto<>(response), OK);
 
+
+
         return new ResponseEntity(OK);
+
     }
 
     //질문 전체조회 (Bar의 Questions, 최신 순)
     @GetMapping()
+
+    public ResponseEntity findAll(@RequestParam int page,
+                                  @RequestParam int size) {  //페이징 처리
+
 
     public ResponseEntity findAll(@RequestParam int page,
                                   @RequestParam int size) {  //페이징 처리
@@ -96,6 +105,15 @@ public class QuestionControllerV1 {
 
         List<MultiQuestionDto> responses = mapper.questionsToResponses(content);
         return new ResponseEntity(new MultiResponseDto<>(responses, questionPage), OK);
+
+
+        Page<Question> questionPage = questionService.findAll(page, size);
+        List<Question> content = questionPage.getContent();
+
+
+        List<MultiQuestionDto> responses = mapper.questionsToResponses(content);
+        return new ResponseEntity(new MultiResponseDto<>(responses, questionPage), OK);
+    }
 
 
 
@@ -109,8 +127,16 @@ public class QuestionControllerV1 {
     public ResponseEntity search(@RequestParam String content) {
 
 
+        //질문 검색
+    @GetMapping("/search")  // 페이징
+    public ResponseEntity search (@RequestParam String content,
+                                    @RequestParam int page,
+                                    @RequestParam int size) {
+
         return new ResponseEntity(OK);
     }
+
+
 
     //질문 삭제
     @DeleteMapping("/{question_id}")
@@ -124,5 +150,16 @@ public class QuestionControllerV1 {
     }
 
 
+            //질문 삭제
+    @DeleteMapping("/{question_id}")
+
+    public ResponseEntity delete ( @PathVariable int question_id){
+
+
+        questionService.delete(question_id);
+
+
+        return new ResponseEntity(OK);
+    }
 
 }
