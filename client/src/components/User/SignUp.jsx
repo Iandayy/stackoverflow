@@ -1,7 +1,8 @@
 import { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import signUpInputState from '../../state/signUpInputState';
+
+import axios from 'axios';
+
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -66,10 +67,6 @@ const SignUp = () => {
     password: '',
   });
 
-  const setValue = useSetRecoilState(signUpInputState);
-  const item = useRecoilValue(signUpInputState);
-  console.log(item);
-
   const navigate = useNavigate();
 
   const inputValueChangeHandler = (e) => {
@@ -79,19 +76,32 @@ const SignUp = () => {
     });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    setValue((prev) => [
-      ...prev,
-      {
-        name: inputValue.name,
-        email: inputValue.email,
-        password: inputValue.password,
-      },
-    ]);
+    let item = {
+      email: inputValue.email,
+      name: inputValue.name,
+      password: inputValue.password,
+    };
 
-    alert('회원가입 되었습니다. 환영합니다.');
+    await axios
+      .post('http://211.41.205.19:8080/v1/members', item, {
+        credentials: 'include',
+      })
+      .then(() => {
+        alert('회원가입 되었습니다 ! 환영합니다 :)');
+      })
+      .catch((e) => {
+        console.log('err', e);
+        alert('에러입니다 !');
+      });
+
+    setInputValue({
+      name: '',
+      email: '',
+      password: '',
+    });
 
     navigate('/login');
   };
