@@ -1,4 +1,6 @@
+/* eslint-disable react/prop-types */
 import React from 'react'; // eslint-disable-line no-unused-vars
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoImg from '../../assets/logo.png';
 
@@ -24,7 +26,6 @@ const Logo = styled.img`
 
 const Form = styled.form`
   display: flex;
-  position: relative;
   width: 70%;
   height: 32px;
   border: 1px solid #bbb;
@@ -41,7 +42,7 @@ const SearchIcon = styled.img`
 
 const Input = styled.input`
   width: 100%;
-  border: 1px solid #bbb;
+  /* border: 1px solid #bbb; */
   border-radius: 3px;
   padding: 10px 12px;
   font-size: 14px;
@@ -76,10 +77,12 @@ const SignUp = styled.button`
     cursor: pointer;
   }
 `;
-const TopBar = () => {
+const TopBar = ({ children }) => {
   return (
     <TopBarWrapper>
-      <Logo src={LogoImg} alt="logo" />
+      <Link to="/">
+        <Logo src={LogoImg} alt="logo" />
+      </Link>
       <Form>
         <SearchIcon
           alt="search-icon"
@@ -87,8 +90,12 @@ const TopBar = () => {
         />
         <Input type="text" placeholder="Search..." />
       </Form>
-      <LogIn>Log in</LogIn>
-      <SignUp>Sign up</SignUp>
+      <Link to="/login">
+        <LogIn>Log in</LogIn>
+      </Link>
+      <Link to="/signup">
+        <SignUp>Sign up</SignUp>
+      </Link>
     </TopBarWrapper>
   );
 };

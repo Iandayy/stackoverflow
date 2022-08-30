@@ -1,25 +1,21 @@
 // eslint-disable-line no-unused-vars
-
-import { useRecoilState } from 'recoil';
 import { Link } from 'react-router-dom';
-
+import { useRecoilState } from 'recoil';
+import styled from 'styled-components';
 import currentTapState from '../../state/currentTapState';
 
-import styled from 'styled-components';
-
 const SideMenu = styled.aside`
-  font-weight: 400;
-  border: 1px solid rgba(223, 223, 223, 0.5);
-  color: rgba(73, 73, 73, 0.5);
-  background-color: #ffffff;
   display: flex;
   flex-direction: column;
+  width: 164px;
+  height: 100%;
+  padding-top: 24px;
+  margin-bottom: 8px;
+  background-color: #ffffff;
+  color: rgba(73, 73, 73, 0.5);
+  font-weight: 400;
+  border: 1px solid rgba(223, 223, 223, 0.5);
   list-style: none;
-  width: 8rem;
-  height: 100vh;
-  padding: 10px;
-  padding-top: 30px;
-  margin-bottom: 7rem;
 `;
 
 const Menu = styled.section`
@@ -56,22 +52,20 @@ const SideBar = () => {
   };
 
   return (
-    <div>
-      <SideMenu>
-        {menuArr.map((el, index) => (
-          <Menu key={index} onClick={() => selectMenuHandler(index)}>
-            {
-              <Link
-                to={el.path}
-                className={currentTab === index ? 'public focused' : 'public'}
-              >
-                {el.name}
-              </Link>
-            }
-          </Menu>
-        ))}
-      </SideMenu>
-    </div>
+    <SideMenu>
+      {menuArr.map((el, index) => (
+        <Menu key={index} onClick={() => selectMenuHandler(index)}>
+          {
+            <Link
+              to={el.path}
+              className={currentTab === index ? 'public focused' : 'public'}
+            >
+              {el.name}
+            </Link>
+          }
+        </Menu>
+      ))}
+    </SideMenu>
   );
 };
 
