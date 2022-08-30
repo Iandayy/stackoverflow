@@ -2,7 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const SignUpContainer = styled.div`
+const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@ const SignUpContainer = styled.div`
   background-color: #f1f2f3;
 `;
 
-const FormWrapper = styled.div`
+const SignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,15 +24,15 @@ const FormWrapper = styled.div`
   border-radius: 8px;
 `;
 
+// const FormWrapper = styled.div`
+//   width: 220px;
+//   height: 32px;
+// `;
+
 const Label = styled.label`
   display: flex;
   flex-direction: column;
   flex-basis: 22%;
-`;
-
-const Form = styled.form`
-  width: 220px;
-  height: 32px;
 `;
 
 const Input = styled.input`
@@ -44,6 +44,7 @@ const Input = styled.input`
 `;
 
 const SignUpBtn = styled.button`
+  /* flex-basis: 22%; */
   width: 220px;
   height: 33px;
   color: white;
@@ -58,11 +59,11 @@ const SignUpBtn = styled.button`
 
 const SignUp = () => {
   return (
-    <SignUpContainer>
-      <FormWrapper>
-        <Label htmlFor="display-name">
-          Display name
-          <Form>
+    <Section>
+      <SignUpContainer>
+        <form id="login-form" action="/v1/members" method="post">
+          <Label htmlFor="display-name">
+            Display name
             <Input
               id="display-name"
               type="text"
@@ -70,11 +71,9 @@ const SignUp = () => {
               maxlength="100"
               name="display-name"
             />
-          </Form>
-        </Label>
-        <Label htmlFor="email">
-          Email
-          <Form>
+          </Label>
+          <Label htmlFor="email">
+            Email
             <Input
               id="email"
               type="email"
@@ -82,26 +81,24 @@ const SignUp = () => {
               maxlength="100"
               name="email"
             />
-          </Form>
-        </Label>
-        <Label htmlFor="password">
-          Password
-          <Form>
+          </Label>
+          <Label htmlFor="password">
+            Password
             <Input
               id="password"
               type="password"
               autocomplete="off"
               name="password"
             />
-          </Form>
-        </Label>
+          </Label>
+        </form>
         <SignUpBtn>Sign up</SignUpBtn>
-      </FormWrapper>
+      </SignUpContainer>
       <div>
         Already have an account?
         <Link to="/signup">Log in</Link>
       </div>
-    </SignUpContainer>
+    </Section>
   );
 };
 
