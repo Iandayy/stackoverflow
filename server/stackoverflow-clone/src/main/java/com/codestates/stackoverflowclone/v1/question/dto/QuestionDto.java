@@ -72,8 +72,9 @@ public class QuestionDto {
     public static class MultiQuestionDto {
 
         private int question_id;
-        private String memberName;
         private String title;
+        private String content;
+        private String memberName;
         private List<String> tags;   /////////////////
         private int viewCount;
         private int answerCount;   //////
