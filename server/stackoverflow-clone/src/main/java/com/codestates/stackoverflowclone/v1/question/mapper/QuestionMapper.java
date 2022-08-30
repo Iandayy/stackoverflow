@@ -48,6 +48,7 @@ public interface QuestionMapper {
                 .map(question -> new MultiQuestionDto(
                         question.getId(),
                         question.getTitle(),
+                        question.getContent(),
                         question.getMember().getName(),
                         question.getQuestionTags().stream()
                                 .map(questionTag -> (questionTag.getTag().getName()))
