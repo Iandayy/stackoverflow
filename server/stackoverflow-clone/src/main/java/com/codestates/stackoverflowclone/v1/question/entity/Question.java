@@ -22,7 +22,6 @@ import static javax.persistence.GenerationType.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-
 @Entity
 public class Question extends Auditable {
 
@@ -49,9 +48,7 @@ public class Question extends Auditable {
     private List<QuestionTag> questionTags = new ArrayList<>();
 
 
-
     //========메서드==========
-
 
 
     //질문 생성
@@ -66,14 +63,12 @@ public class Question extends Auditable {
         this.content = content;
     }
 
-
     public void addViewCount() {
         this.viewCount++;
     }
     public void addAnswerCount() {
         this.answerCount++;
     }
-
 
 
     //=======양방향 매핑=========
@@ -86,7 +81,6 @@ public class Question extends Auditable {
         questionTags.add(questionTag);
         questionTag.setQuestion(this);
     }
-
 
 
 }
