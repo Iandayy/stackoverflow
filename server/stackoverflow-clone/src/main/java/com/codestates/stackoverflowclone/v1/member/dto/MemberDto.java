@@ -2,6 +2,7 @@ package com.codestates.stackoverflowclone.v1.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ public class MemberDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post{
         @NotBlank
         @Email
@@ -24,6 +26,7 @@ public class MemberDto {
 
     @Getter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch{
         private int id;
         private String password;
@@ -35,6 +38,7 @@ public class MemberDto {
     }
 
     @AllArgsConstructor
+    @NoArgsConstructor
     @Getter
     public static class Response{
         private int memberId;
@@ -43,6 +47,7 @@ public class MemberDto {
     }
 
     @AllArgsConstructor
+    @NoArgsConstructor
     @Getter
     public static class Login{
         private String email;

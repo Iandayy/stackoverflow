@@ -1,4 +1,4 @@
-package com.codestates.stackoverflowclone.v1.member.exception;
+package com.codestates.stackoverflowclone.v1.exception;
 
 import lombok.Getter;
 

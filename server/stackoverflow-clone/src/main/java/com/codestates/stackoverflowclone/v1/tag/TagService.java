@@ -1,10 +1,15 @@
 package com.codestates.stackoverflowclone.v1.tag;
 
+import com.codestates.stackoverflowclone.v1.question.entity.Question;
+import com.codestates.stackoverflowclone.v1.tag.repository.TagRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
@@ -42,10 +47,16 @@ public class TagService {
 
 
     //태그 전체조회
-    public List<Tag> findAll() {   ///////페이징 여부
-        return tagRepository.findAll();
+    public Page<Tag> findAll(int page, int size) {
+
+        return tagRepository.findAll(
+                PageRequest.of(page - 1, size, Sort.by("usageCount").descending()));
     }
 
     //태그 검색
+    public Page<Tag> search(String name, int page, int size) {
 
+        Pageable pageable = PageRequest.of(page - 1, size, Sort.by("usageCount").descending());
+        return tagRepository.findByNameContains(name, pageable);
+    }
 }
