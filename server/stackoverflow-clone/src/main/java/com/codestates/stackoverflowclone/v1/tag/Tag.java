@@ -1,6 +1,5 @@
 package com.codestates.stackoverflowclone.v1.tag;
 
-
 import com.codestates.stackoverflowclone.v1.question.entity.QuestionTag;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,8 +7,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.GenerationType.*;
 
 @Entity
 @Getter

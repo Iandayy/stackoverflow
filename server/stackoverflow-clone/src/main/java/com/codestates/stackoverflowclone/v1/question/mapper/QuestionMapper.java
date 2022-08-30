@@ -1,6 +1,7 @@
 package com.codestates.stackoverflowclone.v1.question.mapper;
 
 
+import com.codestates.stackoverflowclone.v1.answer.dto.AnswerDto;
 import com.codestates.stackoverflowclone.v1.question.entity.Question;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -8,6 +9,7 @@ import org.mapstruct.ReportingPolicy;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.codestates.stackoverflowclone.v1.answer.dto.AnswerDto.*;
 import static com.codestates.stackoverflowclone.v1.question.dto.QuestionDto.*;
 import static java.time.LocalDateTime.*;
 
@@ -24,7 +26,7 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
 
         return new SimpleResponseDto(
-                question.getId(), question.getTitle(), question.getContent(), tags
+                question.getId(), question.getTitle(), question.getContent(), tags, question.getCreatedAt()
         );
     }
 
@@ -35,8 +37,12 @@ public interface QuestionMapper {
                 .map(questionTag -> (questionTag.getTag().getName()))
                 .collect(Collectors.toList());
 
+        List<ResponseDto> answers = question.getAnswers().stream()
+                .map(ResponseDto::answerToResponseDto)
+                .collect(Collectors.toList());
+
         return new SingleQuestionDto(
-                question.getId(), question.getTitle(), question.getContent(), tags,
+                question.getId(), question.getTitle(), question.getContent(), tags, answers,
                 question.getCreatedAt(), question.getAnswerCount(), question.getViewCount()
         );
     }
@@ -53,9 +59,9 @@ public interface QuestionMapper {
                         question.getQuestionTags().stream()
                                 .map(questionTag -> (questionTag.getTag().getName()))
                                 .collect(Collectors.toList()),
+                        question.getCreatedAt(),
                         question.getViewCount(),
-                        question.getAnswerCount(),
-                        question.getCreatedAt()))
+                        question.getAnswerCount()))
                 .collect(Collectors.toList());
     }
 

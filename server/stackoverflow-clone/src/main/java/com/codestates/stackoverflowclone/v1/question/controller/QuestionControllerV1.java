@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +31,7 @@ public class QuestionControllerV1 {
 
     //질문 등록
     @PostMapping
-    public ResponseEntity register(@RequestBody RegisterDto registerDto) {
+    public ResponseEntity register(@Validated @RequestBody RegisterDto registerDto) {
 
         Question registered = questionService.register(registerDto);
 
@@ -52,7 +53,7 @@ public class QuestionControllerV1 {
     @PatchMapping("/{question_id}/edit")   ///
 
     public ResponseEntity updateQue(@Positive @PathVariable("question_id") int question_id,
-                                 @RequestBody UpdateDto updateDto) {
+                                    @Validated @RequestBody UpdateDto updateDto) {
 
         updateDto.setId(question_id);
         Question updated = questionService.update(updateDto);

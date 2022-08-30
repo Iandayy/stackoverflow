@@ -1,7 +1,8 @@
 package com.codestates.stackoverflowclone.v1.question.service;
 
+import com.codestates.stackoverflowclone.v1.exception.BusinessLogicException;
+import com.codestates.stackoverflowclone.v1.exception.ExceptionCode;
 import com.codestates.stackoverflowclone.v1.member.entity.Member;
-import com.codestates.stackoverflowclone.v1.member.repository.MemberRepository;
 import com.codestates.stackoverflowclone.v1.member.service.MemberService;
 import com.codestates.stackoverflowclone.v1.question.entity.Question;
 import com.codestates.stackoverflowclone.v1.question.entity.QuestionTag;
@@ -13,7 +14,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import java.util.List;
 
 import static com.codestates.stackoverflowclone.v1.question.dto.QuestionDto.*;
 
@@ -101,7 +101,7 @@ public class QuestionService {
     //id로 질문 조회
     public Question findById(int id) {
         return questionRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 글입니다."));  ///////
+                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
     }
 
 

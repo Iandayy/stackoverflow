@@ -1,8 +1,8 @@
 package com.codestates.stackoverflowclone.v1.member.service;
 
 import com.codestates.stackoverflowclone.v1.member.entity.Member;
-import com.codestates.stackoverflowclone.v1.member.exception.BusinessLogicException;
-import com.codestates.stackoverflowclone.v1.member.exception.ExceptionCode;
+import com.codestates.stackoverflowclone.v1.exception.BusinessLogicException;
+import com.codestates.stackoverflowclone.v1.exception.ExceptionCode;
 import com.codestates.stackoverflowclone.v1.member.helper.event.MemberRegistrationApplicationEvent;
 import com.codestates.stackoverflowclone.v1.member.repository.MemberRepository;
 import org.springframework.context.ApplicationEventPublisher;
@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Transactional
