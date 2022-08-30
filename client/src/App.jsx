@@ -10,6 +10,9 @@ import Home from './components/Pages/Home';
 import Questions from './components/Pages/Questions';
 import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
+import TopBar from './components/Common/TopBar';
+import Footer from './components/Common/Footer';
+import Ask from './components/Pages/Ask';
 import LogIn from './components/User/LogIn';
 import SignUp from './components/User/SignUp';
 
@@ -32,7 +35,7 @@ function App() {
               <Route path="/login" element={<LogIn />} />
               <Route path="/signup" element={<SignUp />} />
               <Route path="/questions" element={<Questions />} />
-              <Route path="/questions/ask" />
+              <Route path="/questions/ask" element={<Ask />} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/users" element={<Users />} />
             </Routes>
