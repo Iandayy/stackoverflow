@@ -49,11 +49,7 @@ public class MemberControllerV1 {
         return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberPatchToMember(requestBody)), HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login requestBody){
 
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
 
     @GetMapping
     public ResponseEntity getMembers(@Positive @RequestParam int page,

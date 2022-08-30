@@ -9,7 +9,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -25,19 +25,21 @@ public class MemberService {
 
     private final ApplicationEventPublisher publisher;
 
-//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
-    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher) {
+    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.memberRepository = memberRepository;
         this.publisher = publisher;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public Member createMember(Member member){
         verifiedExistsEmail(member.getEmail());
         Member savedMember = memberRepository.save(member);
-//        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+        member.setRoles("ROLE_USER");
+
         publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
         return savedMember;
     }
