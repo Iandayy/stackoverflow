@@ -36,7 +36,7 @@ public class MemberControllerV1 {
         Member createdMember = memberService.createMember(member);
         MemberDto.Response response = memberMapper.memberToMemberResponse(createdMember);
 
-        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}")
