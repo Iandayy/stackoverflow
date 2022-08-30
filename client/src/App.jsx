@@ -10,7 +10,6 @@ import Home from './components/Pages/Home';
 import Questions from './components/Pages/Questions';
 import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
-import TopBar from './components/Common/TopBar';
 import Footer from './components/Common/Footer';
 import Ask from './components/Pages/Ask';
 import LogIn from './components/User/LogIn';
