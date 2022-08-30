@@ -123,6 +123,7 @@ const SignUp = () => {
               size="30"
               maxlength="100"
               name="name"
+              value={inputValue.name}
               onChange={inputValueChangeHandler}
             />
           </Label>
@@ -134,6 +135,7 @@ const SignUp = () => {
               size="30"
               maxlength="100"
               name="email"
+              value={inputValue.email}
               onChange={inputValueChangeHandler}
             />
           </Label>
@@ -144,6 +146,7 @@ const SignUp = () => {
               type="password"
               autocomplete="off"
               name="password"
+              value={inputValue.password}
               onChange={inputValueChangeHandler}
             />
           </Label>

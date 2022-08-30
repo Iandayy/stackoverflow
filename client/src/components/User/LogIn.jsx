@@ -1,5 +1,5 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
-import { Link } from 'react-router-dom';
+import { useState } from 'react'; // eslint-disable-line no-unused-vars
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -58,10 +58,60 @@ const LogInBtn = styled.button`
 `;
 
 const LogIn = () => {
+  const [inputValue, setInputValue] = useState({
+    email: '',
+    password: '',
+  });
+
+  const navigate = useNavigate();
+
+  const inputValueChangeHandler = (e) => {
+    setInputValue({
+      ...inputValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    let item = {
+      email: inputValue.email,
+      password: inputValue.password,
+    };
+
+    console.log(item);
+
+    // await axios
+    //   .post('http://211.41.205.19:8080/v1/members', item, {
+    //     credentials: 'include',
+    //   })
+    //   .then(() => {
+    //     alert('회원가입 되었습니다 ! 환영합니다 :)');
+    //   })
+    //   .catch((e) => {
+    //     console.log('err', e);
+    //     alert('에러입니다 !');
+    //   });
+
+    alert('로그인 되었습니다 !');
+
+    setInputValue({
+      email: '',
+      password: '',
+    });
+
+    navigate('/');
+  };
   return (
     <Section>
       <LogInContainer>
-        <form id="login-form" action="/v1/members/login" method="post">
+        <form
+          id="login-form"
+          action="/v1/members/login"
+          method="post"
+          onSubmit={submitHandler}
+        >
           <Label htmlFor="email">
             Email
             <Input
@@ -70,6 +120,8 @@ const LogIn = () => {
               size="30"
               maxlength="100"
               name="email"
+              value={inputValue.email}
+              onChange={inputValueChangeHandler}
             />
           </Label>
           <Label htmlFor="password">
@@ -79,6 +131,8 @@ const LogIn = () => {
               type="password"
               autocomplete="off"
               name="password"
+              value={inputValue.password}
+              onChange={inputValueChangeHandler}
             />
           </Label>
           <LogInBtn>Log in</LogInBtn>
