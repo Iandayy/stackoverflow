@@ -1,5 +1,7 @@
-import React from 'react'; // eslint-disable-line no-unused-vars
-import { Link } from 'react-router-dom';
+import { useState } from 'react'; // eslint-disable-line no-unused-vars
+import { Link, useNavigate } from 'react-router-dom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import signUpInputState from '../../state/signUpInputState';
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -58,10 +60,51 @@ const SignUpBtn = styled.button`
 `;
 
 const SignUp = () => {
+  const [inputValue, setInputValue] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const setValue = useSetRecoilState(signUpInputState);
+  const item = useRecoilValue(signUpInputState);
+  console.log(item);
+
+  const navigate = useNavigate();
+
+  const inputValueChangeHandler = (e) => {
+    setInputValue({
+      ...inputValue,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    setValue((prev) => [
+      ...prev,
+      {
+        name: inputValue.name,
+        email: inputValue.email,
+        password: inputValue.password,
+      },
+    ]);
+
+    alert('회원가입 되었습니다. 환영합니다.');
+
+    navigate('/login');
+  };
+
   return (
     <Section>
       <SignUpContainer>
-        <form id="login-form" action="/v1/members" method="post">
+        <form
+          id="login-form"
+          action="/v1/members"
+          method="post"
+          onSubmit={submitHandler}
+        >
           <Label htmlFor="display-name">
             Display name
             <Input
@@ -69,7 +112,8 @@ const SignUp = () => {
               type="text"
               size="30"
               maxlength="100"
-              name="display-name"
+              name="name"
+              onChange={inputValueChangeHandler}
             />
           </Label>
           <Label htmlFor="email">
@@ -80,6 +124,7 @@ const SignUp = () => {
               size="30"
               maxlength="100"
               name="email"
+              onChange={inputValueChangeHandler}
             />
           </Label>
           <Label htmlFor="password">
@@ -89,10 +134,11 @@ const SignUp = () => {
               type="password"
               autocomplete="off"
               name="password"
+              onChange={inputValueChangeHandler}
             />
           </Label>
+          <SignUpBtn>Sign up</SignUpBtn>
         </form>
-        <SignUpBtn>Sign up</SignUpBtn>
       </SignUpContainer>
       <div>
         Already have an account?
