@@ -6,11 +6,16 @@ import com.codestates.stackoverflowclone.v1.member.exception.ExceptionCode;
 import com.codestates.stackoverflowclone.v1.member.helper.event.MemberRegistrationApplicationEvent;
 import com.codestates.stackoverflowclone.v1.member.repository.MemberRepository;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 
 @Transactional
@@ -21,15 +26,19 @@ public class MemberService {
 
     private final ApplicationEventPublisher publisher;
 
-    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+    public MemberService(MemberRepository memberRepository, ApplicationEventPublisher publisher, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.memberRepository = memberRepository;
         this.publisher = publisher;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public Member createMember(Member member){
         verifiedExistsEmail(member.getEmail());
         Member savedMember = memberRepository.save(member);
-
+        member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
         publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
         return savedMember;
     }
@@ -51,8 +60,26 @@ public class MemberService {
 
     }
 
+    public Page<Member> findMembers(int page, int size){
+        return memberRepository.findAll(PageRequest.of(page,size,
+                Sort.by("createdAt").descending()));
+    }
+
+    @Transactional(readOnly = true)
+    public Member searchMember(String userName){
+        return findMember(userName);
+    }
+
+    @Transactional(readOnly = true)
+    private Member findMember(String userName) {
+        Optional<Member> optionalMember = memberRepository.findByName(userName);
+        Member findMember = optionalMember.orElseThrow(() ->
+                new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        return findMember;
+    }
+
     private void verifiedExistsEmail(String email){
-        Optional<Member> member = memberRepository.findByEmail(email);
+        Optional<Member> member = Optional.ofNullable(memberRepository.findByEmail(email));
         if(member.isPresent()){
             throw new BusinessLogicException(ExceptionCode.MEMBER_EXISTS);
         }

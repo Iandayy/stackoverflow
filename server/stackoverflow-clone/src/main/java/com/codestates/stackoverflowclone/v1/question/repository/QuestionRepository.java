@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface QuestionRepository extends JpaRepository<Question, Integer>, QuestionCustomRepository {
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
 
     //    List<Question> findByContentContains(String content);
     Page<Question> findByContentContains(String content, Pageable pageable);
