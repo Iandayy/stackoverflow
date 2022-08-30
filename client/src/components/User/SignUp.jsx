@@ -110,7 +110,7 @@ const SignUp = () => {
     <Section>
       <SignUpContainer>
         <form
-          id="login-form"
+          id="signup-form"
           action="/v1/members"
           method="post"
           onSubmit={submitHandler}
@@ -152,7 +152,7 @@ const SignUp = () => {
       </SignUpContainer>
       <div>
         Already have an account?
-        <Link to="/signup">Log in</Link>
+        <Link to="/login">Log in</Link>
       </div>
     </Section>
   );

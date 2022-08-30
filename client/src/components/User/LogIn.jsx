@@ -2,7 +2,7 @@ import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const LogInContainer = styled.div`
+const Section = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +12,7 @@ const LogInContainer = styled.div`
   background-color: #f1f2f3;
 `;
 
-const FormWrapper = styled.div`
+const LogInContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,15 +25,15 @@ const FormWrapper = styled.div`
   /* box-shadow:  */
 `;
 
+// const FormWrapper = styled.form`
+//   width: 220px;
+//   height: 32px;
+// `;
+
 const Label = styled.label`
   display: flex;
   flex-direction: column;
   flex-basis: 30%;
-`;
-
-const Form = styled.form`
-  width: 220px;
-  height: 32px;
 `;
 
 const Input = styled.input`
@@ -59,11 +59,11 @@ const LogInBtn = styled.button`
 
 const LogIn = () => {
   return (
-    <LogInContainer>
-      <FormWrapper>
-        <Label htmlFor="email">
-          Email
-          <Form>
+    <Section>
+      <LogInContainer>
+        <form id="login-form" action="/v1/members/login" method="post">
+          <Label htmlFor="email">
+            Email
             <Input
               id="email"
               type="email"
@@ -71,26 +71,24 @@ const LogIn = () => {
               maxlength="100"
               name="email"
             />
-          </Form>
-        </Label>
-        <Label htmlFor="password">
-          Password
-          <Form>
+          </Label>
+          <Label htmlFor="password">
+            Password
             <Input
               id="password"
               type="password"
               autocomplete="off"
               name="password"
             />
-          </Form>
-        </Label>
-        <LogInBtn>Log in</LogInBtn>
-      </FormWrapper>
+          </Label>
+          <LogInBtn>Log in</LogInBtn>
+        </form>
+      </LogInContainer>
       <div>
         Don’t have an account?
         <Link to="/signup">Sign up</Link>
       </div>
-    </LogInContainer>
+    </Section>
   );
 };
 
