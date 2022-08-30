@@ -1,16 +1,20 @@
 package com.codestates.stackoverflowclone.v1.member.controller;
 
 import com.codestates.stackoverflowclone.v1.member.dto.MemberDto;
+import com.codestates.stackoverflowclone.v1.member.dto.response.MultiResponseDto;
+import com.codestates.stackoverflowclone.v1.member.dto.response.SingleResponseDto;
 import com.codestates.stackoverflowclone.v1.member.entity.Member;
 import com.codestates.stackoverflowclone.v1.member.mapper.MemberMapper;
 import com.codestates.stackoverflowclone.v1.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/members")
@@ -32,7 +36,7 @@ public class MemberControllerV1 {
         Member createdMember = memberService.createMember(member);
         MemberDto.Response response = memberMapper.memberToMemberResponse(createdMember);
 
-        return new ResponseEntity<>("회원가입완료", HttpStatus.CREATED);
+        return new ResponseEntity<>(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
 
     @PatchMapping("/{id}")
@@ -42,13 +46,28 @@ public class MemberControllerV1 {
 
         Member member = memberService.updateMember(memberMapper.memberPatchToMember(requestBody));
 
-        return new ResponseEntity<>("수정완료", HttpStatus.OK);
+        return new ResponseEntity<>(new SingleResponseDto<>(memberMapper.memberPatchToMember(requestBody)), HttpStatus.OK);
     }
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity loginMember(@Valid @RequestBody MemberDto.Login requestBody){
 
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity getMembers(@Positive @RequestParam int page,
+                                     @Positive @RequestParam int size){
+        Page<Member> pageMembers = memberService.findMembers(page -1, size);
+        List<Member> members = pageMembers.getContent();
+        return new ResponseEntity<>(
+                new MultiResponseDto<>(memberMapper.memberToMemberResponses(members), pageMembers), HttpStatus.OK);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity getMember(String username){
+        Member member = memberService.searchMember(username);
+        return new ResponseEntity(new SingleResponseDto<>(memberMapper.memberToMemberResponse(member)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
