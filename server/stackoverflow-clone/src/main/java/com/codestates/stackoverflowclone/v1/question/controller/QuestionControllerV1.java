@@ -11,15 +11,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
-import com.codestates.stackoverflowclone.v1.question.service.QuestionService;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Positive;
 
 import static com.codestates.stackoverflowclone.v1.question.dto.QuestionDto.*;
 import static org.springframework.http.HttpStatus.*;
@@ -56,7 +51,7 @@ public class QuestionControllerV1 {
     //질문 수정
     @PatchMapping("/{question_id}/edit")   ///
 
-    public ResponseEntity updateQue(@PathVariable("question_id") int question_id,
+    public ResponseEntity updateQue(@Positive @PathVariable("question_id") int question_id,
                                  @RequestBody UpdateDto updateDto) {
 
         updateDto.setId(question_id);
@@ -77,11 +72,11 @@ public class QuestionControllerV1 {
 
     }
 
-    //질문 전체조회 (Bar의 Questions, 최신 순)
+    //질문 전체조회 (Bar의 Questions, 최신순)
     @GetMapping()
 
     public ResponseEntity findAll(@RequestParam int page,
-                                  @RequestParam int size) {  //페이징 처리
+                                  @RequestParam int size) {
 
         Page<Question> questionPage = questionService.findAll(page, size);
         List<Question> content = questionPage.getContent();
@@ -91,7 +86,7 @@ public class QuestionControllerV1 {
     }
 
     //질문 검색
-    @GetMapping("/search")  // 페이징
+    @GetMapping("/search")
     public ResponseEntity search (@RequestParam String content,
                                     @RequestParam int page,
                                     @RequestParam int size) {
@@ -108,7 +103,6 @@ public class QuestionControllerV1 {
     public ResponseEntity delete(@PathVariable int question_id) {
 
         questionService.delete(question_id);
- 
         return new ResponseEntity(OK);
     }
 
