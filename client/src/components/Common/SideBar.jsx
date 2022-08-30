@@ -20,7 +20,6 @@ const SideMenu = styled.aside`
   padding: 10px;
   padding-top: 30px;
   margin-bottom: 7rem;
-  position: fixed;
 `;
 
 const Menu = styled.section`

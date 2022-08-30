@@ -19,6 +19,7 @@ import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
 import TopBar from './components/Common/TopBar';
 import Footer from './components/Common/Footer';
+import Ask from './components/Pages/Ask';
 
 function App() {
   return (
@@ -34,7 +35,7 @@ function App() {
               <Route path="/signup" />
 
               <Route path="/questions" element={<Questions />} />
-              <Route path="/questions/ask" />
+              <Route path="/questions/ask" element={<Ask />} />
 
               <Route path="/tags" element={<Tags />} />
               <Route path="/users" element={<Users />} />
