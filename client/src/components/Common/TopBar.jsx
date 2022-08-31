@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react'; // eslint-disable-line no-unused-vars
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import isAuthState from '../../state/isLoginState';
 import styled from 'styled-components';
 import LogoImg from '../../assets/logo.png';
 
@@ -78,6 +80,18 @@ const SignUp = styled.button`
   }
 `;
 const TopBar = ({ children }) => {
+  const setIsLogin = useSetRecoilState(isAuthState);
+  const isLogin = useRecoilValue(isAuthState);
+
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    alert('로그아웃 되었습니다.');
+
+    setIsLogin((prev) => !prev);
+
+    navigate('/');
+  };
   return (
     <TopBarWrapper>
       <Link to="/">
@@ -90,12 +104,17 @@ const TopBar = ({ children }) => {
         />
         <Input type="text" placeholder="Search..." />
       </Form>
-      <Link to="/login">
-        <LogIn>Log in</LogIn>
-      </Link>
-      <Link to="/signup">
-        <SignUp>Sign up</SignUp>
-      </Link>
+      {isLogin && <button onClick={logoutHandler}>Log out</button>}
+      {!isLogin && (
+        <div>
+          <Link to="/login">
+            <LogIn>Log in</LogIn>
+          </Link>
+          <Link to="/signup">
+            <SignUp>Sign up</SignUp>
+          </Link>
+        </div>
+      )}
     </TopBarWrapper>
   );
 };

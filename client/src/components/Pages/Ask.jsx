@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import questionInputState from '../../state/questionInputState';
+import inputQuestState from '../../state/inputQuestState';
 import styled from 'styled-components';
 
 const Card = styled.div`
@@ -38,7 +38,7 @@ const Ask = () => {
     tags: '',
   });
 
-  const setValue = useSetRecoilState(questionInputState);
+  const setValue = useSetRecoilState(inputQuestState);
 
   const navigate = useNavigate();
 

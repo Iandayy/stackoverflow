@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 
-import questionsAll from '../../state/questionsAllState';
-import questionInputState from '../../state/questionInputState';
+import questionsAllState from '../../state/questionsAllState';
+import inputQuestState from '../../state/inputQuestState';
 import QuestionItem from './QuestionItem';
 import styled from 'styled-components';
 
@@ -65,9 +65,9 @@ const Btn = styled.button`
 const Content = styled.div``;
 
 const Questions = () => {
-  const questions = useRecoilValue(questionsAll);
-  const item = useRecoilValue(questionInputState);
-  console.log(item);
+  const questions = useRecoilValue(questionsAllState);
+  const item = useRecoilValue(inputQuestState);
+  console.log(questions);
 
   return (
     <Main>
