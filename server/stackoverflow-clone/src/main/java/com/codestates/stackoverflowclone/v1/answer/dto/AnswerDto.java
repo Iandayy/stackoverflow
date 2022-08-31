@@ -17,7 +17,6 @@ public class AnswerDto {
     @AllArgsConstructor @NoArgsConstructor
     public static class RegisterDto {
 
-        @Positive
         private int question_id;
         @NotBlank
         private String content;
@@ -34,7 +33,6 @@ public class AnswerDto {
         @Positive
         private int member_id;
     }
-
 
     @Getter @Setter
     @AllArgsConstructor @NoArgsConstructor
