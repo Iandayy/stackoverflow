@@ -38,6 +38,8 @@ public class MemberService {
         verifiedExistsEmail(member.getEmail());
         Member savedMember = memberRepository.save(member);
         member.setPassword(bCryptPasswordEncoder.encode(member.getPassword()));
+        member.setRoles("ROLE_USER");
+
         publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
         return savedMember;
     }
