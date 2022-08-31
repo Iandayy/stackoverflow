@@ -1,8 +1,8 @@
 package com.codestates.stackoverflowclone.v1.config;
 
 import com.codestates.stackoverflowclone.v1.filter.JwtAuthenticationFilter;
-import lombok.RequiredArgsConstructor;
-import org.apache.catalina.filters.CorsFilter;
+import com.codestates.stackoverflowclone.v1.filter.JwtAuthorizationFilter;
+import com.codestates.stackoverflowclone.v1.member.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,31 +17,43 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-//    @Autowired(required = true)
-//    private CorsFilter corsFilter;
+    @Autowired
+    private CorsConfig corsConfig;
 
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-        http.csrf().disable();
-        http.headers().frameOptions().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        return http
+                .csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
                 .apply(new CustomDsl())
                 .and()
-                .authorizeRequests()
-                .anyRequest().permitAll();
-        return http.build();
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers("/v1/members/user/**")
+                        .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                        .antMatchers("/v1/members/manager/**")
+                        .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
+                        .antMatchers("/v1/members/admin/**")
+                        .access("hasRole('ROLE_ADMIN')")
+                        .antMatchers("/h2/**")
+                        .permitAll()
+                        .anyRequest().permitAll())
+                .build();
     }
 
     public class CustomDsl extends AbstractHttpConfigurer<CustomDsl, HttpSecurity>{
         @Override
-        public void configure(HttpSecurity builder) throws Exception {
-            AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class);
-            builder
-                    .addFilter(new JwtAuthenticationFilter(authenticationManager));
+        public void configure(HttpSecurity http) throws Exception {
+            AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
+            http
+                    .addFilter(corsConfig.corsFilter())
+                    .addFilter(new JwtAuthenticationFilter(authenticationManager))
+                    .addFilter(new JwtAuthorizationFilter(authenticationManager, memberRepository));
         }
     }
 }

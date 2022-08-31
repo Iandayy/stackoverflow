@@ -2,6 +2,8 @@ package com.codestates.stackoverflowclone.v1.filter;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.codestates.stackoverflowclone.v1.member.dto.LoginRequestDto;
+import com.codestates.stackoverflowclone.v1.member.dto.MemberDto;
 import com.codestates.stackoverflowclone.v1.member.entity.Member;
 import com.codestates.stackoverflowclone.v1.auth.PrincipalDetails;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,28 +22,36 @@ import java.io.IOException;
 import java.util.Date;
 
 @RequiredArgsConstructor
-public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 
     private final AuthenticationManager authenticationManager;
 
+
     @Override
-    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)throws AuthenticationException{
+    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
+            throws AuthenticationException {
 
+        ObjectMapper om = new ObjectMapper();
+
+        LoginRequestDto loginRequestDto = null;
         try {
-            ObjectMapper om = new ObjectMapper();
-            Member member = om.readValue(request.getInputStream(), Member.class);
-
-            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(member.getEmail(), member.getPassword());
-
-            Authentication authentication = authenticationManager.authenticate(authenticationToken);
-
-            PrincipalDetails principalDetails = (PrincipalDetails) authentication.getPrincipal();
-            return authentication;
-        }
-        catch (IOException e) {
+            loginRequestDto = om.readValue(request.getInputStream(), LoginRequestDto.class);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+
+
+        UsernamePasswordAuthenticationToken authenticationToken =
+                new UsernamePasswordAuthenticationToken(
+                        loginRequestDto.getEmail(),
+                        loginRequestDto.getPassword());
+
+
+        Authentication authentication =
+                authenticationManager.authenticate(authenticationToken);
+
+        PrincipalDetails principalDetailis = (PrincipalDetails) authentication.getPrincipal();
+        return authentication;
     }
 
     @Override
@@ -55,7 +65,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000 * 10)))
                 .withClaim("id", principalDetails.getMember().getId())
                 .withClaim("userEmail", principalDetails.getMember().getEmail())
-                .sign(Algorithm.HMAC512("cos_jwt_token"));
-        response.addHeader("Authorization", "Bearer " + jwtToken);
+                .sign(Algorithm.HMAC512(JwtProperties.SECRET));
+
+        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX+jwtToken);
     }
 }
