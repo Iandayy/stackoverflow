@@ -3,8 +3,6 @@ package com.codestates.stackoverflowclone.v1.config;
 import com.codestates.stackoverflowclone.v1.filter.JwtAuthenticationFilter;
 import com.codestates.stackoverflowclone.v1.filter.JwtAuthorizationFilter;
 import com.codestates.stackoverflowclone.v1.member.repository.MemberRepository;
-import lombok.RequiredArgsConstructor;
-import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,12 +33,15 @@ public class SecurityConfig {
                 .httpBasic().disable()
                 .apply(new CustomDsl())
                 .and()
-                .authorizeRequests(authorize -> authorize.antMatchers("/v1/members/user/**")
+                .authorizeRequests(authorize -> authorize
+                        .antMatchers("/v1/members/user/**")
                         .access("hasRole('ROLE_USER') or hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                         .antMatchers("/v1/members/manager/**")
                         .access("hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')")
                         .antMatchers("/v1/members/admin/**")
                         .access("hasRole('ROLE_ADMIN')")
+                        .antMatchers("/h2/**")
+                        .permitAll()
                         .anyRequest().permitAll())
                 .build();
     }
