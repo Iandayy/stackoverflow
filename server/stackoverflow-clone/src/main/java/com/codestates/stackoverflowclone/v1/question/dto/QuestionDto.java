@@ -60,6 +60,7 @@ public class QuestionDto {
     public static class SingleQuestionDto {
 
         private int question_id;
+        private int member_id;
         private String title;
         private String content;
         private List<String> tags;
@@ -84,5 +85,11 @@ public class QuestionDto {
         private int answerCount;
     }
 
+    //삭제 요청 필드
+    @Getter @Setter
+    @AllArgsConstructor @NoArgsConstructor
+    public static class DeleteDto {
 
+        private int member_id;
+    }
 }
