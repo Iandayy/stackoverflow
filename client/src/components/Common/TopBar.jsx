@@ -2,16 +2,19 @@
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import LogoImg from '../../assets/logo.png';
-import isAuthState from '../../state/isLoginState';
 
 const TopBarWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
   background-color: #f8f9f9;
   width: 100%;
   height: 47px;
+  /* font-size: 1em; */
+  /* margin: 1em; */
+  /* padding: 0.25em 1em; */
+  /* border: 2px solid palevioletred; */
+  /* border-radius: 3px; */
 `;
 
 const Logo = styled.img`
@@ -73,7 +76,6 @@ const SignUp = styled.button`
     cursor: pointer;
   }
 `;
-
 const TopBar = ({ children }) => {
   const navigate = useNavigate();
 
@@ -99,16 +101,16 @@ const TopBar = ({ children }) => {
         />
         <Input type="text" placeholder="Search..." />
       </Form>
-      {isLogin && <button onClick={logoutHandler}>Log out</button>}
-      {!isLogin && (
-        <>
+      {login && <button onClick={logoutHandler}>Log out</button>}
+      {!login && (
+        <div>
           <Link to="/login">
             <LogIn>Log in</LogIn>
           </Link>
           <Link to="/signup">
             <SignUp>Sign up</SignUp>
           </Link>
-        </>
+        </div>
       )}
     </TopBarWrapper>
   );

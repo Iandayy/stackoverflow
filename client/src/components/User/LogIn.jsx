@@ -2,7 +2,6 @@ import axios from 'axios';
 import { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import isAuthState from '../../state/isLoginState';
 
 const Section = styled.section`
   display: flex;
