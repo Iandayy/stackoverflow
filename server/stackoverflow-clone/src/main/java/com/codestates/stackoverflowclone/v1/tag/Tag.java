@@ -8,8 +8,6 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.GenerationType.*;
-
 @Entity
 @Getter
 @NoArgsConstructor
@@ -33,7 +31,7 @@ public class Tag {
     }
 
 
-    //===================
+    //================
 
     public void addQuestionTag(QuestionTag questionTag) {
         questionTags.add(questionTag);
@@ -42,4 +40,5 @@ public class Tag {
     public void addUsageCount() {
         this.usageCount++;
     }
+
 }

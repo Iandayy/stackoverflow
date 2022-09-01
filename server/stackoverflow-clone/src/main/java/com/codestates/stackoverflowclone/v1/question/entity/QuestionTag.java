@@ -7,13 +7,12 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-import static javax.persistence.CascadeType.*;
 import static javax.persistence.FetchType.*;
 import static javax.persistence.GenerationType.*;
 
 @Entity
 @Getter
-@Setter   ///////
+@Setter  
 @NoArgsConstructor
 public class QuestionTag {
 
@@ -22,23 +21,22 @@ public class QuestionTag {
     private int id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "question_id") //////
+    @JoinColumn(name = "question_id")
     private Question question;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "tag_name")   /////
+    @JoinColumn(name = "tag_name")
     private Tag tag;
-
 
 
     public QuestionTag(Tag tag) {
         this.tag = tag;
     }
-
-    public QuestionTag (Question question, Tag tag) {
+    public QuestionTag(Question question, Tag tag) {
         this.question = question;
         this.tag = tag;
     }
-
-
 }
+
+
+

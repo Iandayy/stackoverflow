@@ -1,9 +1,11 @@
 package com.codestates.stackoverflowclone.v1.question.dto;
 
+import com.codestates.stackoverflowclone.v1.answer.dto.AnswerDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import org.springframework.lang.Nullable;
 
 import javax.validation.constraints.*;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Getter
 public class QuestionDto {
+
     @Getter @Setter
     @AllArgsConstructor @NoArgsConstructor
     public static class RegisterDto {
@@ -20,9 +23,9 @@ public class QuestionDto {
         private String title;
         @NotBlank
         private String content;
-        private List<String> tags;   /////////////////
+        private List<String> tags;
         @Positive
-        private int member_id;  //////////////
+        private int member_id;  ////
     }
 
     @Getter @Setter
@@ -35,7 +38,7 @@ public class QuestionDto {
         private String title;
         @NotBlank
         private String content;
-        private List<String> tags;   /////////////////
+        private List<String> tags;
         @Positive
         private int member_id;
     }
@@ -48,6 +51,7 @@ public class QuestionDto {
         private String title;
         private String content;
         private List<String> tags;
+        private LocalDateTime createdAt;
     }
 
     //단일 조회 응답
@@ -58,7 +62,8 @@ public class QuestionDto {
         private int question_id;
         private String title;
         private String content;
-        private List<String> tags;   /////////////////
+        private List<String> tags;
+        private List<AnswerDto.ResponseDto> answers;
         private LocalDateTime createdAt;
         private int answerCount;
         private int viewCount;
@@ -70,11 +75,14 @@ public class QuestionDto {
     public static class MultiQuestionDto {
 
         private int question_id;
-        private String memberName;
         private String title;
-        private List<String> tags;   /////////////////
-        private int viewCount;
-        private int answerCount;   //////
+        private String content;
+        private String memberName;
+        private List<String> tags;
         private LocalDateTime createdAt;
+        private int viewCount;
+        private int answerCount;
     }
+
+
 }
