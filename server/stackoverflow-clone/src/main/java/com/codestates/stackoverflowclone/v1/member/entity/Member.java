@@ -3,6 +3,7 @@ package com.codestates.stackoverflowclone.v1.member.entity;
 import com.codestates.stackoverflowclone.v1.audit.Auditable;
 import com.codestates.stackoverflowclone.v1.question.entity.Question;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -46,5 +48,9 @@ public class Member extends Auditable {
         return new ArrayList<>();
     }
 
-
+    public Member(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
 }
