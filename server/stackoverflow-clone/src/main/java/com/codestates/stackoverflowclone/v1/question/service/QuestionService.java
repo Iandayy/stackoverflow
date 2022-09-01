@@ -15,6 +15,9 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+import static com.codestates.stackoverflowclone.v1.exception.ExceptionCode.*;
 import static com.codestates.stackoverflowclone.v1.question.dto.QuestionDto.*;
 
 @Transactional(readOnly = true)
@@ -46,6 +49,10 @@ public class QuestionService {
         int id = updateDto.getId();
         Question question = findById(id);
 
+        if (updateDto.getMember_id() != question.getMember().getId()) {
+            throw new BusinessLogicException(MEMBER_NOT_AUTHORIZED);
+        }
+
         question.update(updateDto.getTitle(), updateDto.getContent());
 
         question.getQuestionTags().clear();     //
@@ -76,7 +83,7 @@ public class QuestionService {
     public Page<Question> findAll(int page, int size) {   //페이징
 
         return questionRepository.findAll(
-                PageRequest.of(page - 1, size, Sort.by("id").descending())); 
+                PageRequest.of(page - 1, size, Sort.by("id").descending()));
     }
 
     //질문 검색
@@ -88,8 +95,13 @@ public class QuestionService {
 
     //질문 삭제
     @Transactional
-    public void delete(int question_id) {
+    public void delete(int question_id, int member_id) {
+
         Question question = findById(question_id);
+        if (member_id != question.getMember().getId()) {
+            throw new BusinessLogicException(MEMBER_NOT_AUTHORIZED);
+        }
+
         questionRepository.delete(question);
     }
 
@@ -101,7 +113,7 @@ public class QuestionService {
     //id로 질문 조회
     public Question findById(int id) {
         return questionRepository.findById(id)
-                .orElseThrow(() -> new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));
+                .orElseThrow(() -> new BusinessLogicException(QUESTION_NOT_FOUND));
     }
 
 
