@@ -1,23 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import isAuthState from '../../state/isLoginState';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import LogoImg from '../../assets/logo.png';
+import isAuthState from '../../state/isLoginState';
 
 const TopBarWrapper = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: center;
   align-items: center;
   background-color: #f8f9f9;
   width: 100%;
   height: 47px;
-  /* font-size: 1em; */
-  /* margin: 1em; */
-  /* padding: 0.25em 1em; */
-  /* border: 2px solid palevioletred; */
-  /* border-radius: 3px; */
 `;
 
 const Logo = styled.img`
@@ -79,6 +75,7 @@ const SignUp = styled.button`
     cursor: pointer;
   }
 `;
+
 const TopBar = ({ children }) => {
   const setIsLogin = useSetRecoilState(isAuthState);
   const isLogin = useRecoilValue(isAuthState);
@@ -106,14 +103,14 @@ const TopBar = ({ children }) => {
       </Form>
       {isLogin && <button onClick={logoutHandler}>Log out</button>}
       {!isLogin && (
-        <div>
+        <>
           <Link to="/login">
             <LogIn>Log in</LogIn>
           </Link>
           <Link to="/signup">
             <SignUp>Sign up</SignUp>
           </Link>
-        </div>
+        </>
       )}
     </TopBarWrapper>
   );
