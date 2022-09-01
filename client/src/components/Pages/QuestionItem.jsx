@@ -10,6 +10,9 @@ const Content = styled.section`
   div {
     margin: 10px;
   }
+  .title {
+    cursor: pointer;
+  }
 `;
 
 const Tag = styled.button`
@@ -26,7 +29,8 @@ const QuestionItem = ({ item }) => {
           <p>{item.viewCount} views</p>
         </div>
         <div>
-          <p key={item.question_id}>{item.title}</p>
+          <p className="title">{item.title}</p>
+          <p>{item.content}</p>
         </div>
       </Content>
       <Content>

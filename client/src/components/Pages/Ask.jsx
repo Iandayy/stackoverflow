@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import inputQuestState from '../../state/inputQuestState';
+import axios from 'axios';
 import styled from 'styled-components';
 
 const Card = styled.div`
@@ -38,7 +37,7 @@ const Ask = () => {
     tags: '',
   });
 
-  const setValue = useSetRecoilState(inputQuestState);
+  let token = localStorage.getItem('Authorization');
 
   const navigate = useNavigate();
 
@@ -49,18 +48,31 @@ const Ask = () => {
     });
   };
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault();
 
-    setValue((prev) => [
-      ...prev,
-      {
-        id: Math.floor(Math.random() * 100) + 1,
-        title: inputValue.title,
-        body: inputValue.body,
-        tags: inputValue.tags,
-      },
-    ]);
+    let item = {
+      // member_id: 1,
+      title: inputValue.title,
+      content: inputValue.body,
+      tags: inputValue.tags,
+    };
+
+    console.log(item);
+
+    await axios
+      .post('http://211.41.205.19:8080/v1/questions', item, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: token,
+        },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log('err', err);
+      });
 
     setInputValue({
       title: '',

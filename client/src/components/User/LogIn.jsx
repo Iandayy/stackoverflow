@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import isAuthState from '../../state/isLoginState';
 
@@ -75,8 +74,6 @@ const LogIn = () => {
 
   const navigate = useNavigate();
 
-  const setIsLogin = useSetRecoilState(isAuthState);
-
   const inputValueChangeHandler = (e) => {
     setInputValue({
       ...inputValue,
@@ -101,21 +98,20 @@ const LogIn = () => {
       .then((res) => {
         let jwtToken = res.headers.authorization;
         localStorage.setItem('Authorization', jwtToken);
+        localStorage.setItem('login', true);
 
         alert('로그인 되었습니다 !');
         navigate('/');
       })
       .catch((e) => {
         console.log('err', e);
-        alert('이메일과 비밀번호를 다시 확인해주세요.');
+        alert('로그인 정보를 확인해주세요 !');
       });
 
     setInputValue({
       email: '',
       password: '',
     });
-
-    setIsLogin((prev) => !prev);
   };
 
   return (

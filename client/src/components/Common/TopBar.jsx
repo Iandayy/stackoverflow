@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import LogoImg from '../../assets/logo.png';
 import isAuthState from '../../state/isLoginState';
@@ -77,15 +75,15 @@ const SignUp = styled.button`
 `;
 
 const TopBar = ({ children }) => {
-  const setIsLogin = useSetRecoilState(isAuthState);
-  const isLogin = useRecoilValue(isAuthState);
-
   const navigate = useNavigate();
+
+  const login = localStorage.getItem('login');
 
   const logoutHandler = () => {
     alert('로그아웃 되었습니다.');
 
-    setIsLogin((prev) => !prev);
+    localStorage.removeItem('Authorization');
+    localStorage.removeItem('login');
 
     navigate('/');
   };
