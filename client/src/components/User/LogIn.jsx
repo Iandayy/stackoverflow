@@ -1,9 +1,8 @@
+import axios from 'axios';
 import { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import styled from 'styled-components';
-
-// axios.defaults.withCredentials = 'include';
+import isAuthState from '../../state/isLoginState';
 
 const Section = styled.section`
   display: flex;
@@ -11,7 +10,7 @@ const Section = styled.section`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 50vh;
+  height: 70vh;
   background-color: #f1f2f3;
 `;
 
@@ -28,19 +27,22 @@ const LogInContainer = styled.div`
   /* box-shadow:  */
 `;
 
-// const FormWrapper = styled.form`
-//   width: 220px;
-//   height: 32px;
-// `;
+const Form = styled.form`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: space-evenly;
+  height: 90%;
+`;
 
 const Label = styled.label`
   display: flex;
   flex-direction: column;
-  flex-basis: 30%;
+  flex-basis: 80%;
 `;
 
 const Input = styled.input`
-  width: 100%;
+  /* width: 100%; */
   padding: 7.8px 9.1px;
   border: 1px solid #bbb;
   font-size: 14px;
@@ -48,7 +50,7 @@ const Input = styled.input`
 `;
 
 const LogInBtn = styled.button`
-  width: 220px;
+  flex-basis: 80%;
   height: 32px;
   color: white;
   background-color: #0b96fe;
@@ -58,6 +60,10 @@ const LogInBtn = styled.button`
     background-color: #0073cc;
     cursor: pointer;
   }
+`;
+
+const LinkBox = styled.div`
+  margin-top: 20px;
 `;
 
 const LogIn = () => {
@@ -107,10 +113,11 @@ const LogIn = () => {
       password: '',
     });
   };
+
   return (
     <Section>
       <LogInContainer>
-        <form
+        <Form
           id="login-form"
           action="/v1/members/login"
           method="post"
@@ -140,12 +147,12 @@ const LogIn = () => {
             />
           </Label>
           <LogInBtn>Log in</LogInBtn>
-        </form>
+        </Form>
       </LogInContainer>
-      <div>
-        Don’t have an account?
+      <LinkBox>
+        Don’t have an account?&nbsp;&nbsp;
         <Link to="/signup">Sign up</Link>
-      </div>
+      </LinkBox>
     </Section>
   );
 };

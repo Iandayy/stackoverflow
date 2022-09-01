@@ -1,8 +1,6 @@
+import axios from 'axios';
 import { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
-
-import axios from 'axios';
-
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -11,7 +9,7 @@ const Section = styled.section`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 50vh;
+  height: 70vh;
   background-color: #f1f2f3;
 `;
 
@@ -27,19 +25,22 @@ const SignUpContainer = styled.div`
   border-radius: 8px;
 `;
 
-// const FormWrapper = styled.div`
-//   width: 220px;
-//   height: 32px;
-// `;
+const Form = styled.form`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-content: space-evenly;
+  height: 90%;
+`;
 
 const Label = styled.label`
   display: flex;
   flex-direction: column;
-  flex-basis: 22%;
+  flex-basis: 80%;
 `;
 
 const Input = styled.input`
-  width: 100%;
+  /* width: 100%; */
   padding: 7.8px 9.1px;
   border: 1px solid #bbb;
   font-size: 14px;
@@ -47,9 +48,8 @@ const Input = styled.input`
 `;
 
 const SignUpBtn = styled.button`
-  /* flex-basis: 22%; */
-  width: 220px;
-  height: 33px;
+  flex-basis: 80%;
+  height: 32px;
   color: white;
   background-color: #0b96fe;
   border: none;
@@ -58,6 +58,10 @@ const SignUpBtn = styled.button`
     background-color: #0073cc;
     cursor: pointer;
   }
+`;
+
+const LinkBox = styled.div`
+  margin-top: 20px;
 `;
 
 const SignUp = () => {
@@ -91,6 +95,7 @@ const SignUp = () => {
       })
       .then(() => {
         alert('회원가입 되었습니다 ! 환영합니다 :)');
+        navigate('/login');
       })
       .catch((e) => {
         console.log('err', e);
@@ -102,14 +107,12 @@ const SignUp = () => {
       email: '',
       password: '',
     });
-
-    navigate('/login');
   };
 
   return (
     <Section>
       <SignUpContainer>
-        <form
+        <Form
           id="signup-form"
           action="/v1/members"
           method="post"
@@ -151,12 +154,12 @@ const SignUp = () => {
             />
           </Label>
           <SignUpBtn>Sign up</SignUpBtn>
-        </form>
+        </Form>
       </SignUpContainer>
-      <div>
-        Already have an account?
+      <LinkBox>
+        Already have an account?&nbsp;&nbsp;
         <Link to="/login">Log in</Link>
-      </div>
+      </LinkBox>
     </Section>
   );
 };
