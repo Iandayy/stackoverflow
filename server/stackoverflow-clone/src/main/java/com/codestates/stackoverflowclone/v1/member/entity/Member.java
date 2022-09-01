@@ -20,7 +20,7 @@ import java.util.List;
 @Setter
 @Entity
 public class Member extends Auditable {
-    // audit pull 이후 extends 예정
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
