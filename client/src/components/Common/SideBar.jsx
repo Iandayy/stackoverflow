@@ -7,34 +7,30 @@ import currentTapState from '../../state/currentTapState';
 const SideMenu = styled.aside`
   display: flex;
   flex-direction: column;
-  width: 164px;
+  width: 216px;
   height: 100%;
   padding-top: 24px;
   margin-bottom: 8px;
   background-color: #ffffff;
   color: rgba(73, 73, 73, 0.5);
   font-weight: 400;
-  border: 1px solid rgba(223, 223, 223, 0.5);
+  border-right: 1px solid #d6d9dc;
   list-style: none;
 `;
 
-const Menu = styled.section`
-  color: rgba(73, 73, 73, 0.5);
-  padding: 5px;
-
-  .public {
-    text-decoration-line: none;
-    padding: 2px;
-  }
-  .public:visited {
-    font-weight: 600;
-    color: rgba(73, 73, 73, 0.5);
-  }
-  .focused {
-    font-weight: 700;
-    background-color: #f3f3f3;
-    transition: 0.3s;
-  }
+const MenuLink = styled(Link)`
+  display: block;
+  width: 216px;
+  padding: 8px;
+  text-decoration-line: none;
+  border-right: ${(props) =>
+    props.focused === 'focused' ? '4px solid #f48225' : 'transparent'};
+  color: ${(props) =>
+    props.focused === 'focused' ? 'black' : 'rgba(69, 69, 69, 0.7)'};
+  background-color: ${(props) =>
+    props.focused === 'focused' ? '#f3f3f3' : 'transparent'};
+  font-weight: ${(props) => (props.focused === 'focused' ? '700' : '400')};
+  transition: ${(props) => (props.focused === 'focused' ? '0.5s' : '0s')};
 `;
 
 const SideBar = () => {
@@ -54,16 +50,15 @@ const SideBar = () => {
   return (
     <SideMenu>
       {menuArr.map((el, index) => (
-        <Menu key={index} onClick={() => selectMenuHandler(index)}>
-          {
-            <Link
-              to={el.path}
-              className={currentTab === index ? 'public focused' : 'public'}
-            >
-              {el.name}
-            </Link>
-          }
-        </Menu>
+        <MenuLink
+          key={index}
+          onClick={() => selectMenuHandler(index)}
+          to={el.path}
+          className={currentTab === index ? 'public focused' : 'public'}
+          focused={currentTab === index ? 'focused' : null}
+        >
+          {el.name}
+        </MenuLink>
       ))}
     </SideMenu>
   );

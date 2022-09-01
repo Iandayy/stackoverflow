@@ -6,6 +6,23 @@ const Body = styled.div`
   display: flex;
   flex-direction: row;
   height: 100%;
+  margin-top: 47px;
+`;
+
+const BlankBox = styled.div`
+  width: 100%;
+  flex: 1;
+  @media (max-width: 1264px) {
+    display: none;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  width: 1264px;
+  @media (max-width: 1264px) {
+    width: 100%;
+  }
 `;
 
 const Main = styled.main`
@@ -15,12 +32,14 @@ const Main = styled.main`
 
 const Layout = ({ children }) => {
   return (
-    <div>
-      <Body>
+    <Body>
+      <BlankBox />
+      <ContentWrapper>
         <SideBar />
         <Main>{children}</Main>
-      </Body>
-    </div>
+      </ContentWrapper>
+      <BlankBox />
+    </Body>
   );
 };
 

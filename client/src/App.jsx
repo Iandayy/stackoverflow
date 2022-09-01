@@ -2,15 +2,15 @@ import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
 import styled from 'styled-components';
+import Footer from './components/Common/Footer';
 import GlobalStyle from './components/Common/GlobalStyle';
 import Layout from './components/Common/Layout';
 import TopBar from './components/Common/TopBar';
+import Ask from './components/Pages/Ask';
 import Home from './components/Pages/Home';
 import Questions from './components/Pages/Questions';
 import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
-import Footer from './components/Common/Footer';
-import Ask from './components/Pages/Ask';
 import LogIn from './components/User/LogIn';
 import SignUp from './components/User/SignUp';
 
