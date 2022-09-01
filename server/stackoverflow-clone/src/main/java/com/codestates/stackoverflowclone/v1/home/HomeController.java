@@ -5,14 +5,19 @@ import com.codestates.stackoverflowclone.v1.question.dto.response.MultiResponseD
 import com.codestates.stackoverflowclone.v1.question.entity.Question;
 import com.codestates.stackoverflowclone.v1.question.mapper.QuestionMapper;
 import com.codestates.stackoverflowclone.v1.question.service.QuestionService;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
@@ -36,4 +41,12 @@ public class HomeController {
         List<QuestionDto.MultiQuestionDto> responses = mapper.questionsToResponses(content);
         return new ResponseEntity(new MultiResponseDto<>(responses, questionPage), OK);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity login(HttpServletResponse response) {
+
+        String member_id = response.getHeader("member_id");
+        return new ResponseEntity<>(OK);
+    }
+
 }
