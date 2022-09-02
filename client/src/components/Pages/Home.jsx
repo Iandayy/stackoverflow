@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom';
-// import { useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 
-// import homeAllState from '../../state/homeAllState';
+import homeAllState from '../../state/homeAllState';
 
-// import HomeItem from './HomeItem';
+import HomeItem from './HomeItem';
 
 import styled from 'styled-components';
 
@@ -48,11 +48,10 @@ const Btn = styled.button`
   }
 `;
 
-// const Content = styled.div``;
+const Content = styled.div``;
 
 const Home = () => {
-  // const items = useRecoilValue(homeAllState);
-  // console.log(items);
+  const items = useRecoilValue(homeAllState);
 
   return (
     <Main>
@@ -69,11 +68,11 @@ const Home = () => {
         <Btn>Unanswered</Btn>
         <Btn>More</Btn>
       </div>
-      {/* <Content>
+      <Content>
         {items.map((item) => (
           <HomeItem key={item.question_id} item={item} />
         ))}
-      </Content> */}
+      </Content>
     </Main>
   );
 };
