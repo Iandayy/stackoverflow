@@ -5,7 +5,9 @@ import {
   faInbox,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import isModalState from '../../state/isModalState';
 import styled from 'styled-components';
 import LogoImg from '../../assets/logo.png';
 <FontAwesomeIcon icon="fa-regular fa-inbox" />;
@@ -41,6 +43,7 @@ const Logo = styled.img`
   width: 200px;
   height: 30px;
   margin: 8px;
+  cursor: pointer;
 `;
 
 const Form = styled.form`
@@ -111,6 +114,23 @@ const TopBar = ({ children }) => {
 
   const login = localStorage.getItem('login');
 
+  const setIsMadal = useSetRecoilState(isModalState);
+
+  const logoHandler = () => {
+    setIsMadal(false);
+    navigate('/');
+  };
+
+  const loginHandler = () => {
+    setIsMadal(true);
+    navigate('/login');
+  };
+
+  const signupHandler = () => {
+    setIsMadal(true);
+    navigate('/signup');
+  };
+
   const logoutHandler = () => {
     localStorage.clear();
 
@@ -122,9 +142,7 @@ const TopBar = ({ children }) => {
     <Header>
       <BlankBox />
       <TopBarWrapper>
-        <Link to="/">
-          <Logo src={LogoImg} alt="logo" />
-        </Link>
+        <Logo src={LogoImg} alt="logo" onClick={logoHandler} />
         <Form>
           <SearchIcon
             alt="search-icon"
@@ -147,12 +165,8 @@ const TopBar = ({ children }) => {
         )}
         {!login && (
           <>
-            <Link to="/login">
-              <LogIn>Log in</LogIn>
-            </Link>
-            <Link to="/signup">
-              <SignUp>Sign up</SignUp>
-            </Link>
+            <LogIn onClick={loginHandler}>Log in</LogIn>
+            <SignUp onClick={signupHandler}>Sign up</SignUp>
           </>
         )}
       </TopBarWrapper>

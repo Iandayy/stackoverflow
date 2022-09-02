@@ -1,6 +1,8 @@
 import axios from 'axios';
-import { useState } from 'react'; // eslint-disable-line no-unused-vars
+import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import isModalState from '../../state/isModalState';
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -71,6 +73,8 @@ const LogIn = () => {
     password: '',
   });
 
+  const setIsMadal = useSetRecoilState(isModalState);
+
   const navigate = useNavigate();
 
   const inputValueChangeHandler = (e) => {
@@ -100,6 +104,7 @@ const LogIn = () => {
         localStorage.setItem('member_id', member_id);
 
         alert('로그인 되었습니다 !');
+        setIsMadal(false);
         navigate('/');
       })
       .catch((e) => {
@@ -111,6 +116,7 @@ const LogIn = () => {
       email: '',
       password: '',
     });
+    setIsMadal();
   };
 
   return (
