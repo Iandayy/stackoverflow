@@ -1,6 +1,9 @@
 /* eslint-disable react/prop-types */
-import styled from 'styled-components';
+import { useRecoilValue } from 'recoil';
+import isModalState from '../../state/isModalState';
+
 import SideBar from '../Common/SideBar';
+import styled from 'styled-components';
 
 const Body = styled.div`
   display: flex;
@@ -31,11 +34,12 @@ const Main = styled.main`
 `;
 
 const Layout = ({ children }) => {
+  const isModal = useRecoilValue(isModalState);
   return (
     <Body>
       <BlankBox />
       <ContentWrapper>
-        <SideBar />
+        {!isModal && <SideBar />}
         <Main>{children}</Main>
       </ContentWrapper>
       <BlankBox />

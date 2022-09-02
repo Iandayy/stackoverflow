@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import isModalState from '../../state/isModalState';
 import styled from 'styled-components';
 
 const Section = styled.section`
@@ -71,6 +73,8 @@ const SignUp = () => {
     password: '',
   });
 
+  const setIsMadal = useSetRecoilState(isModalState);
+
   const navigate = useNavigate();
 
   const inputValueChangeHandler = (e) => {
@@ -95,6 +99,7 @@ const SignUp = () => {
       })
       .then(() => {
         alert('회원가입 되었습니다 ! 환영합니다 :)');
+        setIsMadal(false);
         navigate('/login');
       })
       .catch((e) => {
