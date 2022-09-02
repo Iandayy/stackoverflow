@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import styled from 'styled-components';
 
@@ -40,8 +39,6 @@ const Ask = () => {
   const token = localStorage.getItem('Authorization');
   const member_id = localStorage.getItem('member_id');
 
-  const navigate = useNavigate();
-
   const inputValueChangeHandler = (e) => {
     setInputValue({
       ...inputValue,
@@ -70,7 +67,7 @@ const Ask = () => {
       })
       .then((res) => {
         alert('글이 등록되었습니다 !');
-        navigate('/questions');
+        window.location.replace('/questions');
       })
       .catch((err) => {
         console.log('err', err);

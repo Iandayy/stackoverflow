@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const QuestionSelect = () => {
@@ -7,14 +6,13 @@ const QuestionSelect = () => {
   const token = localStorage.getItem('Authorization');
   const userSelect = JSON.parse(localStorage.getItem('userSelect'));
 
-  const navigate = useNavigate();
-
   const [isEdit, isSetEdit] = useState(false);
   const [editValue, setEditValue] = useState({
     title: '',
     body: '',
-    tags: '',
+    tags: [],
   });
+  console.log(editValue.tags);
 
   // 삭제 버튼 클릭
   const onDeleteHandler = async () => {
@@ -37,7 +35,7 @@ const QuestionSelect = () => {
         )
         .then((res) => {
           alert('회원님의 글이 삭제되었습니다 !');
-          navigate('/questions');
+          window.location.replace('/questions');
         })
         .catch((err) => console.log('err', err));
     } else alert('회원님의 글이 아닙니다.');
@@ -69,16 +67,26 @@ const QuestionSelect = () => {
       title: editValue.title,
     };
 
+    if (typeof data.tags === typeof userSelect.tags) {
+      data.tags = userSelect.tags;
+      console.log(data.tags);
+    }
+
+    console.log(typeof data.tags);
+    console.log(typeof userSelect.tags);
+
     if (Number(member_id) === userSelect.member_id) {
       await axios
         .patch(
           `http://211.41.205.19:8080/v1/questions/${userSelect.question_id}/edit`,
-          {
-            content: editValue.body,
-            member_id: Number(member_id),
-            tags: [editValue.tags],
-            title: editValue.title,
-          },
+          // {
+          //   content: editValue.body,
+          //   member_id: Number(member_id),
+          //   tags: [editValue.tags],
+          //   title: editValue.title,
+          // },
+          data,
+
           {
             headers: {
               'Content-Type': 'application/json',
@@ -87,12 +95,21 @@ const QuestionSelect = () => {
           }
         )
         .then((res) => {
+          console.log(res.request);
           alert('회원님의 글이 수정되었습니다 !');
-          navigate('/questions/select');
+          window.location.replace('/questions');
         })
-        .catch((err) => console.log('err', err));
+        .catch((err) => {
+          if (err.request) {
+            console.log('2', err.request);
+          } else if (err.response) {
+            console.log('1', err.response);
+          } else if (err.message) {
+            console.log('3', err.message);
+          }
+        });
     } else alert('회원님의 글이 아닙니다.');
-    console.log(data);
+    console.log(data.tags);
     isSetEdit(false);
   };
 
