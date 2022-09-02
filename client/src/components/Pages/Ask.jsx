@@ -37,7 +37,8 @@ const Ask = () => {
     tags: '',
   });
 
-  let token = localStorage.getItem('Authorization');
+  const token = localStorage.getItem('Authorization');
+  const member_id = localStorage.getItem('member_id');
 
   const navigate = useNavigate();
 
@@ -52,10 +53,10 @@ const Ask = () => {
     e.preventDefault();
 
     let item = {
-      // member_id: 1,
+      member_id: Number(member_id),
       title: inputValue.title,
       content: inputValue.body,
-      tags: inputValue.tags,
+      tags: [inputValue.tags],
     };
 
     console.log(item);
@@ -68,7 +69,8 @@ const Ask = () => {
         },
       })
       .then((res) => {
-        console.log(res);
+        alert('글이 등록되었습니다 !');
+        navigate('/questions');
       })
       .catch((err) => {
         console.log('err', err);
@@ -79,8 +81,6 @@ const Ask = () => {
       body: '',
       tags: '',
     });
-
-    navigate('/questions');
   };
 
   return (

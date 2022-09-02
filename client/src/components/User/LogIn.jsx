@@ -88,16 +88,16 @@ const LogIn = () => {
       password: inputValue.password,
     };
 
-    console.log(item);
-
     await axios
       .post('http://211.41.205.19:8080/login', item, {
         credentials: true,
       })
       .then((res) => {
         let jwtToken = res.headers.authorization;
+        let member_id = res.headers.member_id;
         localStorage.setItem('Authorization', jwtToken);
         localStorage.setItem('login', true);
+        localStorage.setItem('member_id', member_id);
 
         alert('로그인 되었습니다 !');
         navigate('/');

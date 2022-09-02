@@ -1,3 +1,6 @@
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 import styled from 'styled-components';
 
 const Main = styled.article`
@@ -21,6 +24,17 @@ const Tag = styled.button`
 `;
 
 const QuestionItem = ({ item }) => {
+  const navigate = useNavigate();
+
+  const titleHandler = async () => {
+    try {
+      const res = await axios.get(`/v1/questions/${item.question_id}`);
+      localStorage.setItem('userSelect', JSON.stringify(res.data.data));
+      navigate('/questions/select');
+    } catch {
+      console.log('err');
+    }
+  };
   return (
     <Main>
       <Content>
@@ -29,7 +43,7 @@ const QuestionItem = ({ item }) => {
           <p>{item.viewCount} views</p>
         </div>
         <div>
-          <p className="title">{item.title}</p>
+          <button onClick={titleHandler}>{item.title}</button>
           <p>{item.content}</p>
         </div>
       </Content>

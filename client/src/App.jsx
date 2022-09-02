@@ -13,6 +13,7 @@ import Tags from './components/Pages/Tags';
 import Users from './components/Pages/Users';
 import LogIn from './components/User/LogIn';
 import SignUp from './components/User/SignUp';
+import QuestionSelect from './components/Pages/QuestionSelect';
 
 const Container = styled.div`
   display: flex;
@@ -34,6 +35,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/questions" element={<Questions />} />
               <Route path="/questions/ask" element={<Ask />} />
+              <Route path="/questions/select" element={<QuestionSelect />} />
               <Route path="/tags" element={<Tags />} />
               <Route path="/users" element={<Users />} />
             </Routes>
