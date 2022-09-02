@@ -82,10 +82,9 @@ const TopBar = ({ children }) => {
   const login = localStorage.getItem('login');
 
   const logoutHandler = () => {
-    alert('로그아웃 되었습니다.');
+    localStorage.clear();
 
-    localStorage.removeItem('Authorization');
-    localStorage.removeItem('login');
+    alert('로그아웃 되었습니다.');
 
     navigate('/');
   };
