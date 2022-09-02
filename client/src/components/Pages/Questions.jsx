@@ -1,27 +1,30 @@
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-
+import styled from 'styled-components';
 import questionsAllState from '../../state/questionsAllState';
 import QuestionItem from './QuestionItem';
-import styled from 'styled-components';
 
-const Main = styled.main`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
   width: 100%;
 `;
 
-const Section = styled.section`
+const Wrapper = styled.title`
   display: flex;
   justify-content: space-between;
-  margin: 20px;
+  padding-top: ${(props) => (props.role === 'title' ? '24px;' : null)};
+  padding-right: 24px;
+  padding-bottom: ${(props) => (props.role === 'title' ? '24px;' : '12px;')};
+  padding-left: 24px;
+  border-bottom: ${(props) =>
+    props.role === 'title' ? null : '1px solid #d6d9dc;'};
 `;
 
 const AskBtn = styled.button`
-  width: 100px;
-  height: 33px;
+  width: 104px;
+  height: 100%;
   color: white;
   background-color: #0b96fe;
   border: none;
@@ -32,10 +35,45 @@ const AskBtn = styled.button`
   }
 `;
 
+const Count = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 20px;
+`;
+
+const BtnWrapper = styled.div`
+  border-top: 1px solid #434242;
+  border-bottom: 1px solid #434242;
+  border-left: 1px solid #434242;
+  border-radius: 3px;
+`;
+
+const Btn = styled.button`
+  padding: 9px;
+  color: #898989;
+  background-color: #ffffff;
+  border: none;
+  border-right: 1px solid #434242;
+  &:first-child {
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    background-color: #e3e6e8;
+  }
+  &:last-child {
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+  }
+  &:hover {
+    color: #434242;
+    background-color: #f6f6f6;
+    cursor: pointer;
+  }
+`;
+
 const FilterBtn = styled.button`
-  width: 60px;
-  height: 33px;
-  margin-left: 4px;
+  padding: 9px;
+  margin-left: 9px;
   color: #5688ac;
   background-color: #e1ecf4;
   border: 1px solid #83a9c5;
@@ -47,52 +85,38 @@ const FilterBtn = styled.button`
   }
 `;
 
-const Btn = styled.button`
-  height: 33px;
-  margin-left: 4px;
-  color: #898989;
-  background-color: #ffffff;
-  border: 1px solid #878787;
-  border-radius: 3px;
-  &:hover {
-    color: #7d7d7d;
-    background-color: #f6f6f6;
-    cursor: pointer;
-  }
+const Content = styled.div`
+  border-bottom: 1px solid #d6d9dc;
 `;
-
-const Content = styled.div``;
 
 const Questions = () => {
   const questions = useRecoilValue(questionsAllState);
 
   return (
-    <Main>
-      <Section>
+    <Container>
+      <Wrapper role="title">
         <h1>All Questions</h1>
         <Link to="/questions/ask">
           <AskBtn>Ask Question</AskBtn>
         </Link>
-      </Section>
-      <Section>
-        <div>{`${questions.length} questions`}</div>
-        <div>
+      </Wrapper>
+      <Wrapper>
+        <Count>{`${questions.length} questions`}</Count>
+        <BtnWrapper>
           <Btn>Newest</Btn>
           <Btn>Active</Btn>
           <Btn>Bountied</Btn>
           <Btn>Unanswered</Btn>
           <Btn>More</Btn>
-        </div>
-        <div>
-          <FilterBtn>Fliter</FilterBtn>
-        </div>
-      </Section>
+        </BtnWrapper>
+        <FilterBtn>Fliter</FilterBtn>
+      </Wrapper>
       <Content>
         {questions.map((question) => (
           <QuestionItem key={question.question_id} item={question} />
         ))}
       </Content>
-    </Main>
+    </Container>
   );
 };
 

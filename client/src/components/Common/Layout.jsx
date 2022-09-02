@@ -29,8 +29,8 @@ const ContentWrapper = styled.div`
 `;
 
 const Main = styled.main`
-  padding: 24px 16px;
   width: 100%;
+  margin-bottom: 24px;z
 `;
 
 const Layout = ({ children }) => {

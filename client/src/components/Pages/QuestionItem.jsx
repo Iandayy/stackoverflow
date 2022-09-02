@@ -1,27 +1,55 @@
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Main = styled.article`
-  border: 1px solid gray;
-`;
-
-const Content = styled.section`
+const QuestionWrapper = styled.section`
   display: flex;
-  justify-content: center;
-  div {
-    margin: 10px;
-  }
-  .title {
-    cursor: pointer;
-  }
+  padding: 16px;
+  border-bottom: 1px solid #d6d9dc;
 `;
 
-const Tag = styled.button`
-  color: blue;
-  background-color: skyblue;
+const CountWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 16px;
 `;
+
+const ContentWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Title = styled.button`
+  margin-bottom: 4px;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  font-size: 24px;
+  color: #0073cc;
+  cursor: pointer;
+`;
+
+const Body = styled.div`
+  margin-bottom: 8px;
+`;
+
+const InfoContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Tag = styled.div`
+  padding: 4.8px 6px;
+  color: #5688ac;
+  background-color: #e1ecf4;
+  border-radius: 3px;
+  font-size: 14px;
+`;
+
+const User = styled.div``;
 
 const QuestionItem = ({ item }) => {
   const navigate = useNavigate();
@@ -35,31 +63,24 @@ const QuestionItem = ({ item }) => {
       console.log('err');
     }
   };
+
   return (
-    <Main>
-      <Content>
-        <div>
-          <p>{item.answerCount} answers</p>
-          <p>{item.viewCount} views</p>
-        </div>
-        <div>
-          <button onClick={titleHandler}>{item.title}</button>
-          <p>{item.content}</p>
-        </div>
-      </Content>
-      <Content>
-        <div>
-          <p>
-            {item.tags.map((el) => (
-              <Tag key={item.tags.indexOf(el)}>{el}</Tag>
-            ))}
-          </p>
-        </div>
-        <div>
-          <p>{item.memberName}</p>
-        </div>
-      </Content>
-    </Main>
+    <QuestionWrapper>
+      <CountWrapper>
+        <p>{item.answerCount} answers</p>
+        <p>{item.viewCount} views</p>
+      </CountWrapper>
+      <ContentWrapper>
+        <Title onClick={titleHandler}>{item.title}</Title>
+        <Body>{item.content}</Body>
+        <InfoContainer>
+          {item.tags.map((el) => (
+            <Tag key={item.tags.indexOf(el)}>{el}</Tag>
+          ))}
+          <User>{item.memberName}</User>
+        </InfoContainer>
+      </ContentWrapper>
+    </QuestionWrapper>
   );
 };
 
