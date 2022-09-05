@@ -1,11 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
-
-import homeAllState from '../../state/homeAllState';
-
-import HomeItem from './HomeItem';
-
 import styled from 'styled-components';
+import homeAllState from '../../state/homeAllState';
+import HomeItem from './HomeItem';
 
 const Main = styled.main`
   display: flex;
