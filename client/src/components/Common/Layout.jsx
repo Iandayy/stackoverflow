@@ -30,7 +30,8 @@ const ContentWrapper = styled.div`
 
 const Main = styled.main`
   width: 100%;
-  margin-bottom: 24px;z
+  height: 100%;
+  /* margin-bottom: 24px; */
 `;
 
 const Layout = ({ children }) => {
