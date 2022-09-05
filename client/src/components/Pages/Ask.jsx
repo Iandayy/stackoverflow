@@ -2,9 +2,20 @@ import { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
+const Container = styled.article`
+  background-color: #f3f3f3;
+  padding: 10px;
+  padding-bottom: 30px;
+`;
+
+const H1 = styled.h1`
+  margin: 40px;
+`;
+
 const Card = styled.div`
-  border-radius: 12px;
+  border-radius: 10px;
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.25);
+  margin: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -12,16 +23,26 @@ const Card = styled.div`
 `;
 
 const Input = styled.section`
-  padding: 10px;
+  padding: 20px;
+  background-color: white;
+  input {
+    width: 100%;
+    height: 3vh;
+  }
+  textarea {
+    width: 100%;
+    height: 20vh;
+  }
 `;
 
 const Btn = styled.button`
-  width: 100px;
-  height: 33px;
+  width: 15%;
+  height: 5vh;
   color: white;
   background-color: #0b96fe;
   border: none;
   border-radius: 3px;
+  margin-left: 40px;
 
   &:hover {
     background-color: #0073cc;
@@ -81,7 +102,8 @@ const Ask = () => {
   };
 
   return (
-    <div>
+    <Container>
+      <H1>Ask a public question</H1>
       <form onSubmit={submitHandler}>
         <Card>
           <Input>
@@ -93,6 +115,7 @@ const Ask = () => {
               </p>
             </label>
             <input
+              // size="65"
               id="title"
               type="text"
               name="title"
@@ -123,6 +146,7 @@ const Ask = () => {
               <p>Add up to 5 tags to describe what your question is about</p>
             </label>
             <input
+              // size="65"
               id="tags"
               type="text"
               name="tags"
@@ -134,7 +158,7 @@ const Ask = () => {
         </Card>
         <Btn>Review your question</Btn>
       </form>
-    </div>
+    </Container>
   );
 };
 

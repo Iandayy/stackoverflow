@@ -77,7 +77,9 @@ const QuestionItem = ({ item }) => {
           {item.tags.map((el) => (
             <Tag key={item.tags.indexOf(el)}>{el}</Tag>
           ))}
-          <User>{item.memberName}</User>
+          <User>
+            {item.memberName} {item.createdAt}
+          </User>
         </InfoContainer>
       </ContentWrapper>
     </QuestionWrapper>

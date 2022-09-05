@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
+import { useSetRecoilState, useRecoilValue } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import questionsAllState from '../../state/questionsAllState';
 import QuestionItem from './QuestionItem';
+import isModalState from '../../state/isModalState';
 
 const Container = styled.div`
   display: flex;
@@ -23,8 +24,8 @@ const Wrapper = styled.title`
 `;
 
 const AskBtn = styled.button`
-  width: 104px;
-  height: 100%;
+  width: 100px;
+  height: 33px;
   color: white;
   background-color: #0b96fe;
   border: none;
@@ -91,14 +92,20 @@ const Content = styled.div`
 
 const Questions = () => {
   const questions = useRecoilValue(questionsAllState);
+  const setIsMadal = useSetRecoilState(isModalState);
+
+  const navigate = useNavigate();
+
+  const askHandler = () => {
+    setIsMadal(true);
+    navigate('/questions/ask');
+  };
 
   return (
     <Container>
       <Wrapper role="title">
         <h1>All Questions</h1>
-        <Link to="/questions/ask">
-          <AskBtn>Ask Question</AskBtn>
-        </Link>
+        <AskBtn onClick={askHandler}>Ask Question</AskBtn>
       </Wrapper>
       <Wrapper>
         <Count>{`${questions.length} questions`}</Count>
