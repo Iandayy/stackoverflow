@@ -1,46 +1,49 @@
-// 홈 (/)
-// 로그인 (/login)
-// 회원가입 (/signup)
-
-// 질문 페이지 (/questions)
-// 질문 작성 페이지 (/questions/ask)
-
-// tag 페이지 (/tags)
-// users 목록 페이지 (/users)
-import React from 'react'; // eslint-disable-line no-unused-vars
-
-import { Routes, Route, Link } from 'react-router-dom'; // eslint-disable-line no-unused-vars
-
+import { Suspense } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { RecoilRoot } from 'recoil';
+import styled from 'styled-components';
+import Footer from './components/Common/Footer';
+import GlobalStyle from './components/Common/GlobalStyle';
+import Layout from './components/Common/Layout';
+import TopBar from './components/Common/TopBar';
+import Ask from './components/Pages/Ask';
 import Home from './components/Pages/Home';
+import Questions from './components/Pages/Questions';
+import Tags from './components/Pages/Tags';
+import Users from './components/Pages/Users';
+import LogIn from './components/User/LogIn';
+import SignUp from './components/User/SignUp';
+import QuestionSelect from './components/Pages/QuestionSelect';
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header>
-        <Link to="/" element={<Home />}>
-          home
-        </Link>
-        <Link to="/login">login</Link>
-        <Link to="/signup">signup</Link>
-        <Link to="/questions">질문 페이지</Link>
-        <Link to="/questions/ask">질문 작성 페이지</Link>
-        <Link to="/tags">tags 페이지</Link>
-        <Link to="/users">users 페이지</Link>
-      </header>
-      <main>
-        <Routes>
-          <Route path="/">home</Route>
-          <Route path="/login">login</Route>
-          <Route path="/signup">signup</Route>
-
-          <Route path="/questions">질문 페이지</Route>
-          <Route path="/questions/ask">질문 작성 페이지</Route>
-
-          <Route path="/tags">tags 페이지</Route>
-          <Route path="/users">users 페이지</Route>
-        </Routes>
-      </main>
-    </div>
+    <RecoilRoot className="App">
+      <Suspense fallback={<p>Loading..</p>}>
+        <GlobalStyle />
+        <Container>
+          <TopBar />
+          <Layout>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login" element={<LogIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/questions" element={<Questions />} />
+              <Route path="/questions/ask" element={<Ask />} />
+              <Route path="/questions/select" element={<QuestionSelect />} />
+              <Route path="/tags" element={<Tags />} />
+              <Route path="/users" element={<Users />} />
+            </Routes>
+          </Layout>
+          <Footer />
+        </Container>
+      </Suspense>
+    </RecoilRoot>
   );
 }
 

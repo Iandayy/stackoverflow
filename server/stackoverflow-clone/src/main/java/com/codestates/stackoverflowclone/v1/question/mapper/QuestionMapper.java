@@ -42,7 +42,7 @@ public interface QuestionMapper {
                 .collect(Collectors.toList());
 
         return new SingleQuestionDto(
-                question.getId(), question.getTitle(), question.getContent(), tags, answers,
+                question.getId(), question.getMember().getId(), question.getTitle(), question.getContent(), tags, answers,
                 question.getCreatedAt(), question.getAnswerCount(), question.getViewCount()
         );
     }

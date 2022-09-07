@@ -64,8 +64,6 @@ public class QuestionControllerV1 {
     //질문 읽기
     @GetMapping("/{question_id}")
     public ResponseEntity findOne(@PathVariable("question_id") int question_id) {
-
-
         Question findQuestion = questionService.findOne(question_id);
 
         SingleQuestionDto response = mapper.questionToResponse(findQuestion);
@@ -81,7 +79,6 @@ public class QuestionControllerV1 {
 
         Page<Question> questionPage = questionService.findAll(page, size);
         List<Question> content = questionPage.getContent();
-
         List<MultiQuestionDto> responses = mapper.questionsToResponses(content);
         return new ResponseEntity(new MultiResponseDto<>(responses, questionPage), OK);
     }
@@ -101,9 +98,11 @@ public class QuestionControllerV1 {
     //질문 삭제
     @DeleteMapping("/{question_id}")
 
-    public ResponseEntity delete(@PathVariable int question_id) {
+    public ResponseEntity delete(@PathVariable int question_id,
+                                 @RequestBody DeleteDto deleteDto) {
 
-        questionService.delete(question_id);
+        int member_id = deleteDto.getMember_id();
+        questionService.delete(question_id, member_id);
         return new ResponseEntity(OK);
     }
 

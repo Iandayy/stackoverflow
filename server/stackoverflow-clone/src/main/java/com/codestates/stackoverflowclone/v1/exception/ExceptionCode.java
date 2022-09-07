@@ -6,6 +6,7 @@ public enum ExceptionCode {
     MEMBER_EXISTS(409, "Member exists"),
     MEMBER_NOT_FOUND(404, "Member not found"),
     QUESTION_NOT_FOUND(404, "question not found"),
+    MEMBER_NOT_AUTHORIZED(403, "member not authorized"),
     ANSWER_NOT_FOUND(404, "answer not found");
 
     @Getter

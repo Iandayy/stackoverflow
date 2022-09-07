@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react'; // eslint-disable-line no-unused-vars
+import React, { useState } from 'react'; // eslint-disable-line no-unused-vars
 import { Link, useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import isModalState from '../../state/isModalState';
@@ -15,16 +15,17 @@ const Section = styled.section`
   background-color: #f1f2f3;
 `;
 
-const SignUpContainer = styled.div`
+const LogInContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 300px;
-  height: 300px;
+  height: 250px;
   background-color: white;
   border: 1px solid #bbb;
   border-radius: 8px;
+  /* box-shadow:  */
 `;
 
 const Form = styled.form`
@@ -49,7 +50,7 @@ const Input = styled.input`
   border-radius: 3px;
 `;
 
-const SignUpBtn = styled.button`
+const LogInBtn = styled.button`
   flex-basis: 80%;
   height: 32px;
   color: white;
@@ -66,9 +67,8 @@ const LinkBox = styled.div`
   margin-top: 20px;
 `;
 
-const SignUp = () => {
+const LogIn = () => {
   const [inputValue, setInputValue] = useState({
-    name: '',
     email: '',
     password: '',
   });
@@ -89,52 +89,45 @@ const SignUp = () => {
 
     let item = {
       email: inputValue.email,
-      name: inputValue.name,
       password: inputValue.password,
     };
 
     await axios
-      .post('http://211.41.205.19:8080/v1/members', item, {
-        credentials: 'include',
+      .post('http://211.41.205.19:8080/login', item, {
+        credentials: true,
       })
-      .then(() => {
-        alert('회원가입 되었습니다 ! 환영합니다 :)');
+      .then((res) => {
+        let jwtToken = res.headers.authorization;
+        let member_id = res.headers.member_id;
+        localStorage.setItem('Authorization', jwtToken);
+        localStorage.setItem('login', true);
+        localStorage.setItem('member_id', member_id);
+
+        alert('로그인 되었습니다 !');
         setIsMadal(false);
-        navigate('/login');
+        navigate('/');
       })
       .catch((e) => {
         console.log('err', e);
-        alert('에러입니다 !');
+        alert('로그인 정보를 확인해주세요 !');
       });
 
     setInputValue({
-      name: '',
       email: '',
       password: '',
     });
+    setIsMadal();
   };
 
   return (
     <Section>
-      <SignUpContainer>
+      <LogInContainer>
         <Form
-          id="signup-form"
-          action="/v1/members"
+          id="login-form"
+          action="/v1/members/login"
           method="post"
           onSubmit={submitHandler}
         >
-          <Label htmlFor="display-name">
-            Display name
-            <Input
-              id="display-name"
-              type="text"
-              size="30"
-              maxlength="100"
-              name="name"
-              value={inputValue.name}
-              onChange={inputValueChangeHandler}
-            />
-          </Label>
           <Label htmlFor="email">
             Email
             <Input
@@ -158,15 +151,15 @@ const SignUp = () => {
               onChange={inputValueChangeHandler}
             />
           </Label>
-          <SignUpBtn>Sign up</SignUpBtn>
+          <LogInBtn>Log in</LogInBtn>
         </Form>
-      </SignUpContainer>
+      </LogInContainer>
       <LinkBox>
-        Already have an account?&nbsp;&nbsp;
-        <Link to="/login">Log in</Link>
+        Don’t have an account?&nbsp;&nbsp;
+        <Link to="/signup">Sign up</Link>
       </LinkBox>
     </Section>
   );
 };
 
-export default SignUp;
+export default LogIn;
